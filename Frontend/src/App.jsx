@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import EnterUserData from "./components/EnterUserData";
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <div>
+      {" "}
+      <EnterUserData />{" "}
+    </div>
+  );
+};
 
-export default App
+export default App;
