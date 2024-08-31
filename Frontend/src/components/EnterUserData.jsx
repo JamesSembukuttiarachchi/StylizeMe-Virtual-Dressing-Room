@@ -1,128 +1,121 @@
-import React from "react";
+import React, { useState } from "react";
 import { db } from "../firebaseConfig";
 
 const EnterUserData = () => {
+  const [formData, setFormData] = useState({
+    height: "",
+    chest: "",
+    waist: "",
+    shoulder: "",
+    neck: "",
+    arm: "",
+  });
+
+  const [suggestedSize, setSuggestedSize] = useState("");
+
+  // Handle form input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    suggestClothingSize();
+  };
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="measurement-form">
-        <h2>Enter Your Key Measurements</h2>
+    <div className="">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"
+      >
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          <center>Enter Your Key Measurements</center>
+        </h2>
 
         {/* Essential Fields */}
-        <label>
-          Height (cm):
-          <input
-            type="number"
-            name="height"
-            value={formData.height}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Weight (kg):
-          <input
-            type="number"
-            name="weight"
-            value={formData.weight}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Chest/Bust Circumference (cm):
-          <input
-            type="number"
-            name="chest"
-            value={formData.chest}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Waist Circumference (cm):
-          <input
-            type="number"
-            name="waist"
-            value={formData.waist}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Hip Circumference (cm):
-          <input
-            type="number"
-            name="hip"
-            value={formData.hip}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Shoulder Width (cm):
-          <input
-            type="number"
-            name="shoulder"
-            value={formData.shoulder}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Inseam Length (cm):
-          <input
-            type="number"
-            name="inseam"
-            value={formData.inseam}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <div className="space-y-4 mb-6">
+          <label className="block">
+            <span className="text-gray-700">Height (cm):</span>
+            <input
+              type="number"
+              name="height"
+              value={formData.height}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            />
+          </label>
 
-        {/* Optional Fields */}
-        <h3>Optional Measurements (For Enhanced Accuracy)</h3>
-        <label>
-          Neck Circumference (cm):
-          <input
-            type="number"
-            name="neck"
-            value={formData.neck}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Arm Length (cm):
-          <input
-            type="number"
-            name="arm"
-            value={formData.arm}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Torso Length (cm):
-          <input
-            type="number"
-            name="torso"
-            value={formData.torso}
-            onChange={handleChange}
-          />
-        </label>
-
-        {/* Photo Capture */}
-        <label>
-          Capture Face Photo:
-          <input
-            type="file"
-            accept="image/*"
-            capture="user"
-            onChange={handlePhotoCapture}
-            required
-          />
-        </label>
+          <label className="block">
+            <span className="text-gray-700">
+              Chest/Bust Circumference (cm):
+            </span>
+            <input
+              type="number"
+              name="chest"
+              value={formData.chest}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            />
+          </label>
+          <label className="block">
+            <span className="text-gray-700">Waist Circumference (cm):</span>
+            <input
+              type="number"
+              name="waist"
+              value={formData.waist}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            />
+          </label>
+          <label className="block">
+            <span className="text-gray-700">Shoulder Width (cm):</span>
+            <input
+              type="number"
+              name="shoulder"
+              value={formData.shoulder}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            />
+          </label>
+        </div>
+        <div className="space-y-4 mb-6">
+          <label className="block">
+            <span className="text-gray-600">Neck Circumference (cm):</span>
+            <input
+              type="number"
+              name="neck"
+              value={formData.neck}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            />
+          </label>
+          <label className="block">
+            <span className="text-gray-600">Arm Length (cm):</span>
+            <input
+              type="number"
+              name="arm"
+              value={formData.arm}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            />
+          </label>
+        </div>
 
         {/* Submit Button */}
-        <button type="submit">Submit Measurements</button>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Submit Measurements
+        </button>
       </form>
     </div>
   );

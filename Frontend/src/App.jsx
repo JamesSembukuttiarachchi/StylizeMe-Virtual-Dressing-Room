@@ -1,11 +1,15 @@
 import React from "react";
-import EnterUserData from "./components/EnterUserData";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import EnterUserData from "./components/EnterUserData.jsx";
 
 const App = () => {
   return (
     <div>
-      {" "}
-      <EnterUserData />{" "}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<EnterUserData />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
