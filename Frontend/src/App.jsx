@@ -1,8 +1,11 @@
 import React from 'react'
+import PoseDetection from './components/PoseDetection'
 
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+      <PoseDetection/>
+    </div>
   )
 }
 
