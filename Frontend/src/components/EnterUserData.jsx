@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { db } from "../firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 
 const EnterUserData = () => {
   const [formData, setFormData] = useState({
@@ -11,19 +12,31 @@ const EnterUserData = () => {
     arm: "",
   });
 
-  const [suggestedSize, setSuggestedSize] = useState("");
-
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Function to send data to Firestore
+  const sendDataToFirestore = async () => {
+    try {
+      // Reference to the "userdata" collection
+      const docRef = await addDoc(collection(db, "userdata"), formData);
+      console.log("Document written with ID: ", docRef.id);
+      alert("Data successfully submitted!");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      alert("Failed to submit data. Please try again.");
+    }
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    suggestClothingSize();
+    await sendDataToFirestore();
   };
+
   return (
     <div className="">
       <form
