@@ -1,0 +1,157 @@
+import React, { useState, useEffect } from "react";
+import { db } from "../firebaseConfig";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import UpdateProductModal from "./UpdateProductModal";
+
+const ManageProducts = () => {
+  const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const fetchProducts = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      const productsList = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setProducts(productsList);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleUpdateProduct = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
+
+  const handleUpdate = () => {
+    fetchProducts();
+    handleCloseModal();
+  };
+
+  const handleDeleteProduct = async (id) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        // Delete the product from Firestore
+        await deleteDoc(doc(db, "products", id));
+        
+        // Update the local state
+        setProducts(products.filter((product) => product.id !== id));
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        // Optionally, show a user-friendly message
+        alert("Failed to delete product. Please try again.");
+      }
+    }
+  };
+
+  return (
+    <div className="max-w-full mx-auto mt-10 p-6 bg-blue-100 rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold text-center mb-6">Manage Products</h2>
+      <table className="min-w-full bg-white border rounded-lg">
+        <thead>
+          <tr>
+            <th className="py-3 px-4 bg-gray-100 text-left text-gray-600 font-semibold uppercase tracking-wider border-b w-1/6">
+              Product Image
+            </th>
+            <th className="py-3 px-4 bg-gray-100 text-left text-gray-600 font-semibold uppercase tracking-wider border-b w-1/6">
+              Product Name
+            </th>
+            <th className="py-3 px-4 bg-gray-100 text-left text-gray-600 font-semibold uppercase tracking-wider border-b w-1/6">
+              Brand
+            </th>
+            <th className="py-3 px-4 bg-gray-100 text-left text-gray-600 font-semibold uppercase tracking-wider border-b w-1/6">
+              Category
+            </th>
+            <th className="py-3 px-4 bg-gray-100 text-left text-gray-600 font-semibold uppercase tracking-wider border-b w-1/6">
+              Cloth Type
+            </th>
+            <th className="py-3 px-4 bg-gray-100 text-left text-gray-600 font-semibold uppercase tracking-wider border-b w-1/6">
+              Price
+            </th>
+            <th className="py-3 px-4 bg-gray-100 text-left text-gray-600 font-semibold uppercase tracking-wider border-b w-1/6">
+              Quantity
+            </th>
+            <th className="py-3 px-4 bg-gray-100 text-left text-gray-600 font-semibold uppercase tracking-wider border-b w-1/6">
+              Colors
+            </th>
+            <th className="py-3 px-4 bg-gray-100 text-left text-gray-600 font-semibold uppercase tracking-wider border-b w-1/6">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product, index) => (
+            <tr
+              key={product.id}
+              className={`${
+                index % 2 === 0 ? "bg-gray-50" : "bg-white"
+              } hover:bg-gray-100 transition-colors`}
+            >
+              <td className="py-3 px-4 border-b text-gray-700 w-1/6">
+                <img
+                  src={product.imageUrl}
+                  alt={product.name}
+                  className="w-20 h-20 object-cover rounded"
+                />
+              </td>
+              <td className="py-3 px-4 border-b text-gray-700 w-1/6">{product.name}</td>
+              <td className="py-3 px-4 border-b text-gray-700 w-1/6">{product.brand}</td>
+              <td className="py-3 px-4 border-b text-gray-700 w-1/6">{product.category}</td>
+              <td className="py-3 px-4 border-b text-gray-700 w-1/6">{product.clothType}</td>
+              <td className="py-3 px-4 border-b text-gray-700 w-1/6">${product.price}</td>
+              <td className="py-3 px-4 border-b text-gray-700 w-1/6">{product.quantity}</td>
+              <td className="py-3 px-4 border-b text-gray-700 w-1/6">
+                <div className="flex space-x-2">
+                  {product.colors.map((color, index) => (
+                    <span
+                      key={index}
+                      className="w-6 h-6 rounded-full border"
+                      style={{ backgroundColor: color }}
+                    />
+                  ))}
+                </div>
+              </td>
+              <td className="py-3 px-4 border-b w-1/6">
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => handleUpdateProduct(product)}
+                    className="px-4 py-1 text-white font-semibold rounded-lg bg-yellow-500 hover:bg-yellow-600 transition-colors"
+                  >
+                    Update
+                  </button>
+                  <button
+                    onClick={() => handleDeleteProduct(product.id)}
+                    className="px-4 py-1 text-white font-semibold rounded-lg bg-red-500 hover:bg-red-600 transition-colors"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {isModalOpen && selectedProduct && (
+        <UpdateProductModal
+          product={selectedProduct}
+          onClose={handleCloseModal}
+          onUpdate={handleUpdate}
+        />
+      )}
+    </div>
+  );
+};
+
+export default ManageProducts;
