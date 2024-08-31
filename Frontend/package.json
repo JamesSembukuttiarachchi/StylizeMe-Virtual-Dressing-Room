@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "env": "^0.0.2",
+    "firebase": "^10.13.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
