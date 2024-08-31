@@ -103,47 +103,59 @@ const UserSizeRecm = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-        Size Recommendation
-      </h2>
+    <div className="bg-gray-300 min-h-screen flex items-center justify-center">
+      <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          <center>Size Recommendation</center>
+        </h2>
+        <br />
 
-      {/* Display loading message while fetching */}
-      {loading ? (
-        <p>Loading data...</p>
-      ) : userData ? (
-        <>
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
-              <tr>
-                <th className="px-4 py-2">Height (cm)</th>
-                <th className="px-4 py-2">Chest (cm)</th>
-                <th className="px-4 py-2">Waist (cm)</th>
-                <th className="px-4 py-2">Shoulder (cm)</th>
-                <th className="px-4 py-2">Neck (cm)</th>
-                <th className="px-4 py-2">Arm (cm)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="border px-4 py-2">{userData.height}</td>
-                <td className="border px-4 py-2">{userData.chest}</td>
-                <td className="border px-4 py-2">{userData.waist}</td>
-                <td className="border px-4 py-2">{userData.shoulder}</td>
-                <td className="border px-4 py-2">{userData.neck}</td>
-                <td className="border px-4 py-2">{userData.arm}</td>
-              </tr>
-            </tbody>
-          </table>
+        {/* Display loading message while fetching */}
+        {loading ? (
+          <p>Loading data...</p>
+        ) : userData ? (
+          <>
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2">Height (cm)</th>
+                  <th className="px-4 py-2">Chest (cm)</th>
+                  <th className="px-4 py-2">Waist (cm)</th>
+                  <th className="px-4 py-2">Shoulder (cm)</th>
+                  <th className="px-4 py-2">Neck (cm)</th>
+                  <th className="px-4 py-2">Arm (cm)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border px-4 py-2">{userData.height}</td>
+                  <td className="border px-4 py-2">{userData.chest}</td>
+                  <td className="border px-4 py-2">{userData.waist}</td>
+                  <td className="border px-4 py-2">{userData.shoulder}</td>
+                  <td className="border px-4 py-2">{userData.neck}</td>
+                  <td className="border px-4 py-2">{userData.arm}</td>
+                </tr>
+              </tbody>
+            </table>
 
-          {/* Display Suggested Size */}
-          <p className="mt-4 text-lg font-semibold">
-            Suggested Clothing Size: {suggestedSize}
-          </p>
-        </>
-      ) : (
-        <p>No recent data found.</p>
-      )}
+            {/* Display Suggested Size */}
+            <p className="mt-4 text-blue-500 text-xl font-bold">
+              Suggested Clothing Size:{" "}
+              <span className="text-blue-600 text-2xl">{suggestedSize}</span>
+            </p>
+            <br />
+            <p className="text-m text-gray-600 mt-4">
+              <b className="text-red-500">Please note:</b> The suggested size is
+              based on general sizing standards commonly used worldwide. It
+              serves as a guideline to help you get an idea of your potential
+              size, but may not perfectly match all individual body shapes or
+              garment styles.
+            </p>
+          </>
+        ) : (
+          <p>No recent data found.</p>
+        )}
+      </div>
     </div>
   );
 };
