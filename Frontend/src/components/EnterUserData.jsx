@@ -1,6 +1,7 @@
+// src/components/EnterUserData.jsx
 import React, { useState } from "react";
 import { db } from "../firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"; // Import serverTimestamp
 
 const EnterUserData = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const EnterUserData = () => {
     neck: "",
     arm: "",
   });
+  const [suggestedSize, setSuggestedSize] = useState("");
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -18,11 +20,84 @@ const EnterUserData = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Suggest clothing size based on measurements
+  const suggestClothingSize = () => {
+    const { chest, waist, shoulder } = formData;
+
+    const chestNum = Number(chest);
+    const waistNum = Number(waist);
+    const shoulderNum = Number(shoulder);
+
+    if (
+      chestNum >= 76 &&
+      chestNum <= 82 &&
+      waistNum >= 58 &&
+      waistNum <= 64 &&
+      shoulderNum >= 35 &&
+      shoulderNum <= 38
+    ) {
+      setSuggestedSize("XS");
+    } else if (
+      chestNum >= 83 &&
+      chestNum <= 89 &&
+      waistNum >= 65 &&
+      waistNum <= 71 &&
+      shoulderNum >= 39 &&
+      shoulderNum <= 42
+    ) {
+      setSuggestedSize("S");
+    } else if (
+      chestNum >= 90 &&
+      chestNum <= 96 &&
+      waistNum >= 72 &&
+      waistNum <= 78 &&
+      shoulderNum >= 43 &&
+      shoulderNum <= 45
+    ) {
+      setSuggestedSize("M");
+    } else if (
+      chestNum >= 97 &&
+      chestNum <= 103 &&
+      waistNum >= 79 &&
+      waistNum <= 85 &&
+      shoulderNum >= 46 &&
+      shoulderNum <= 48
+    ) {
+      setSuggestedSize("L");
+    } else if (
+      chestNum >= 104 &&
+      chestNum <= 110 &&
+      waistNum >= 86 &&
+      waistNum <= 92 &&
+      shoulderNum >= 49 &&
+      shoulderNum <= 51
+    ) {
+      setSuggestedSize("XL");
+    } else if (
+      chestNum >= 111 &&
+      chestNum <= 117 &&
+      waistNum >= 93 &&
+      waistNum <= 99 &&
+      shoulderNum >= 52 &&
+      shoulderNum <= 54
+    ) {
+      setSuggestedSize("XXL");
+    } else {
+      setSuggestedSize("Size Not Found");
+    }
+  };
+
   // Function to send data to Firestore
   const sendDataToFirestore = async () => {
     try {
+      // Add a timestamp to the data
+      const dataWithTimestamp = { ...formData, timestamp: serverTimestamp() };
+
       // Reference to the "userdata" collection
-      const docRef = await addDoc(collection(db, "userdata"), formData);
+      const docRef = await addDoc(
+        collection(db, "userdata"),
+        dataWithTimestamp
+      );
       console.log("Document written with ID: ", docRef.id);
       alert("Data successfully submitted!");
     } catch (error) {
@@ -34,6 +109,7 @@ const EnterUserData = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    suggestClothingSize(); // Suggest size before submitting
     await sendDataToFirestore();
   };
 
