@@ -10,13 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.111.5",
+    "@react-three/fiber": "^8.17.6",
     "@tensorflow-models/posenet": "^2.2.2",
     "@tensorflow/tfjs": "^4.20.0",
     "env": "^0.0.2",
     "firebase": "^10.13.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.1"
+    "react-router-dom": "^6.26.1",
+    "three": "^0.168.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

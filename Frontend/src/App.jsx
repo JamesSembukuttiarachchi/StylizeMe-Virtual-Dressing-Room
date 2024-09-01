@@ -1,10 +1,11 @@
 import React from 'react'
 import PoseDetection from './components/PoseDetection'
+import ViewTshirt from './pages/ViewTshirt'
 
 const App = () => {
   return (
     <div>
-      <PoseDetection/>
+      <ViewTshirt/>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as posenet from '@tensorflow-models/posenet';
 import '@tensorflow/tfjs';
-import orange from '../assets/orange.png'
+import orange from '../assets/orange.png';
 
 const PoseDetection = () => {
   const videoRef = useRef(null);
