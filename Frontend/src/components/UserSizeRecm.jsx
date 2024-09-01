@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../firebaseConfig"; // Import the Firebase configuration
-import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 const UserSizeRecm = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [editMode, setEditMode] = useState(false);
+  const [editedData, setEditedData] = useState({});
   const [suggestedSize, setSuggestedSize] = useState("");
+  const [documentId, setDocumentId] = useState(""); // Store the ID of the document to update
 
   // Function to suggest clothing size based on measurements
   const suggestClothingSize = (data) => {
@@ -77,7 +88,6 @@ const UserSizeRecm = () => {
   // Fetch the most recent data from Firestore
   const fetchMostRecentUserData = async () => {
     try {
-      // Create a query to get the most recent document based on timestamp
       const q = query(
         collection(db, "userdata"),
         orderBy("timestamp", "desc"),
@@ -86,8 +96,11 @@ const UserSizeRecm = () => {
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
-        const recentData = querySnapshot.docs[0].data();
+        const docSnapshot = querySnapshot.docs[0];
+        const recentData = docSnapshot.data();
+        setDocumentId(docSnapshot.id); // Store the document ID
         setUserData(recentData);
+        setEditedData(recentData);
         suggestClothingSize(recentData); // Suggest size based on the retrieved data
       }
       setLoading(false);
@@ -95,6 +108,30 @@ const UserSizeRecm = () => {
       console.error("Error fetching user data: ", error);
       setLoading(false);
     }
+  };
+
+  // Update the data in Firestore
+  const updateUserData = async () => {
+    if (!documentId) return; // Ensure the document ID is available
+
+    try {
+      const userDocRef = doc(db, "userdata", documentId);
+      await updateDoc(userDocRef, editedData);
+      setUserData(editedData); // Update the state with the new data
+      suggestClothingSize(editedData); // Recalculate suggested size
+      setEditMode(false); // Exit edit mode
+    } catch (error) {
+      console.error("Error updating user data: ", error);
+    }
+  };
+
+  // Handle input change in edit mode
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   // Use useEffect to fetch data on component mount
@@ -110,7 +147,6 @@ const UserSizeRecm = () => {
         </h2>
         <br />
 
-        {/* Display loading message while fetching */}
         {loading ? (
           <p>Loading data...</p>
         ) : userData ? (
@@ -128,17 +164,77 @@ const UserSizeRecm = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td className="border px-4 py-2">{userData.height}</td>
-                  <td className="border px-4 py-2">{userData.chest}</td>
-                  <td className="border px-4 py-2">{userData.waist}</td>
-                  <td className="border px-4 py-2">{userData.shoulder}</td>
-                  <td className="border px-4 py-2">{userData.neck}</td>
-                  <td className="border px-4 py-2">{userData.arm}</td>
+                  {editMode ? (
+                    <>
+                      <td className="border px-4 py-2">
+                        <input
+                          type="number"
+                          name="height"
+                          value={editedData.height}
+                          onChange={handleInputChange}
+                          className="w-full border-gray-300 rounded-md"
+                        />
+                      </td>
+                      <td className="border px-4 py-2">
+                        <input
+                          type="number"
+                          name="chest"
+                          value={editedData.chest}
+                          onChange={handleInputChange}
+                          className="w-full border-gray-300 rounded-md"
+                        />
+                      </td>
+                      <td className="border px-4 py-2">
+                        <input
+                          type="number"
+                          name="waist"
+                          value={editedData.waist}
+                          onChange={handleInputChange}
+                          className="w-full border-gray-300 rounded-md"
+                        />
+                      </td>
+                      <td className="border px-4 py-2">
+                        <input
+                          type="number"
+                          name="shoulder"
+                          value={editedData.shoulder}
+                          onChange={handleInputChange}
+                          className="w-full border-gray-300 rounded-md"
+                        />
+                      </td>
+                      <td className="border px-4 py-2">
+                        <input
+                          type="number"
+                          name="neck"
+                          value={editedData.neck}
+                          onChange={handleInputChange}
+                          className="w-full border-gray-300 rounded-md"
+                        />
+                      </td>
+                      <td className="border px-4 py-2">
+                        <input
+                          type="number"
+                          name="arm"
+                          value={editedData.arm}
+                          onChange={handleInputChange}
+                          className="w-full border-gray-300 rounded-md"
+                        />
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="border px-4 py-2">{userData.height}</td>
+                      <td className="border px-4 py-2">{userData.chest}</td>
+                      <td className="border px-4 py-2">{userData.waist}</td>
+                      <td className="border px-4 py-2">{userData.shoulder}</td>
+                      <td className="border px-4 py-2">{userData.neck}</td>
+                      <td className="border px-4 py-2">{userData.arm}</td>
+                    </>
+                  )}
                 </tr>
               </tbody>
             </table>
 
-            {/* Display Suggested Size */}
             <p className="mt-4 text-blue-500 text-xl font-bold">
               Suggested Clothing Size:{" "}
               <span className="text-blue-600 text-2xl">{suggestedSize}</span>
@@ -151,6 +247,32 @@ const UserSizeRecm = () => {
               size, but may not perfectly match all individual body shapes or
               garment styles.
             </p>
+
+            {editMode ? (
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={updateUserData}
+                  className="bg-green-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 mr-2"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setEditMode(false)}
+                  className="bg-red-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={() => setEditMode(true)}
+                  className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                >
+                  Edit Measurements
+                </button>
+              </div>
+            )}
           </>
         ) : (
           <p>No recent data found.</p>
