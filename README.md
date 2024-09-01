@@ -15,7 +15,8 @@ Welcome to the Virtual Dressing Room web app! This application uses AR (Augmente
 
 - **Frontend**: React, Tailwind CSS
 - **Backend**: Firebase (Authentication, Firestore, Cloud Storage)
-- **AR Technology**: WebAR or third-party AR libraries
+- **AR Technology**: Tensor Flow, PoseNet
+- **3D Modelling**: Blender
 
 ## Contributors
 
