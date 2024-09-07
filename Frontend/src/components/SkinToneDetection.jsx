@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 const SkinToneDetection = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-  const outputRef = useRef(null);
+  const [recommendedColors, setRecommendedColors] = useState([]);
 
   useEffect(() => {
     const startWebcam = async () => {
@@ -27,12 +28,24 @@ const SkinToneDetection = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
+    // Draw the current video frame to the canvas
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     const frame = context.getImageData(0, 0, canvas.width, canvas.height);
+
+    // Detect the skin color
     const skinColor = detectSkinColor(frame.data);
-    if (outputRef.current) {
-      outputRef.current.textContent = `Detected Skin Tone: ${skinColor}`;
-    }
+    const colors = getRecommendedColors(skinColor);
+    setRecommendedColors(colors);
+
+    // Show SweetAlert with detected skin tone and recommended colors
+    Swal.fire({
+      title: `Detected Skin Tone: ${skinColor}`,
+      html: `<h3>Recommended Dress Colors:</h3><ul>${colors
+        .map((color) => `<li>${color}</li>`)
+        .join("")}</ul>`,
+      icon: "info",
+      confirmButtonText: "OK",
+    });
   };
 
   const detectSkinColor = (data) => {
@@ -78,6 +91,17 @@ const SkinToneDetection = () => {
     return "Unknown";
   };
 
+  const getRecommendedColors = (skinTone) => {
+    // Define color recommendations based on skin tone
+    const recommendations = {
+      Light: ["Pastels", "Soft Pink", "Lavender", "Mint Green"],
+      Medium: ["Jewel Tones", "Emerald", "Sapphire Blue", "Ruby Red"],
+      Dark: ["Bright Colors", "Bold Yellow", "Vibrant Red", "Cobalt Blue"],
+      Unknown: [],
+    };
+    return recommendations[skinTone] || [];
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">Skin Tone Detection</h1>
@@ -97,16 +121,11 @@ const SkinToneDetection = () => {
         className="hidden"
       ></canvas>
       <button
-        onClick={() => setInterval(analyzeSkinTone, 1000)}
+        onClick={analyzeSkinTone}
         className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
-        Start Detection
+        Detect Skin Tone
       </button>
-      <div
-        id="output"
-        ref={outputRef}
-        className="mt-4 text-lg font-semibold text-gray-800"
-      ></div>
     </div>
   );
 };
