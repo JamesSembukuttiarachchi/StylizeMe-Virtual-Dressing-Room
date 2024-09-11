@@ -9,6 +9,9 @@ import signupImage from "../assets/signup-image.jpg";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState(""); // New field for name
+  const [gender, setGender] = useState(""); // New field for gender
+  const [height, setHeight] = useState(""); // New field for height in cm
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -22,17 +25,20 @@ const Signup = () => {
       );
       const user = userCredential.user;
 
-      // Add user info to Firestore with isAdmin set to false by default
+      // Add user info to Firestore with additional fields
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
+        name: name, // Add name to Firestore
+        gender: gender, // Add gender to Firestore
+        height: height, // Add height to Firestore
         isAdmin: false, // By default, the user is not an admin
         skinTone: null, // Placeholder for skin tone to be added later
       });
 
       // SweetAlert success for signup
       Swal.fire({
-        title: "Sign Up Successful!",
-        text: "Account created successfully. Redirecting to skin tone detection...",
+        title: "Success!",
+        text: "Welcome to StylizeMe! Now, Let's detect your skin tone",
         icon: "success",
         timer: 2000,
         showConfirmButton: false,
@@ -44,7 +50,7 @@ const Signup = () => {
       setError(err.message);
       // SweetAlert error for signup failure
       Swal.fire({
-        title: "Sign Up Failed!",
+        title: "Failed!",
         text: err.message,
         icon: "error",
         confirmButtonText: "Try Again",
@@ -70,6 +76,22 @@ const Signup = () => {
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="name"
+              >
+                Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="email"
               >
                 Email
@@ -79,6 +101,42 @@ const Signup = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="gender"
+              >
+                Gender
+              </label>
+              <select
+                id="gender"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="height"
+              >
+                Height (in cm)
+              </label>
+              <input
+                id="height"
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
