@@ -4,7 +4,7 @@ import { db, auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
-import signupImage from "../assets/signup-image.jpg"; // Import your image here
+import signupImage from "../assets/signup-image.jpg";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -26,17 +26,19 @@ const Signup = () => {
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         isAdmin: false, // By default, the user is not an admin
+        skinTone: null, // Placeholder for skin tone to be added later
       });
 
       // SweetAlert success for signup
       Swal.fire({
         title: "Sign Up Successful!",
-        text: "Account created successfully. Redirecting to login...",
+        text: "Account created successfully. Redirecting to skin tone detection...",
         icon: "success",
         timer: 2000,
         showConfirmButton: false,
       }).then(() => {
-        navigate("/login");
+        // Redirect to skin tone detection page
+        navigate("/detectskintone");
       });
     } catch (err) {
       setError(err.message);
@@ -53,12 +55,12 @@ const Signup = () => {
   return (
     <div className="flex min-h-screen">
       <div
-        className="w-1/2 bg-cover bg-center"
+        className="w-2/5 bg-cover bg-center"
         style={{ backgroundImage: `url(${signupImage})` }}
       >
         {/* You can add additional content or styling here if needed */}
       </div>
-      <div className="w-1/2 flex items-center justify-center bg-gray-100">
+      <div className="w-3/5 flex items-center justify-center bg-gray-100">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
           <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-4">
             Sign Up

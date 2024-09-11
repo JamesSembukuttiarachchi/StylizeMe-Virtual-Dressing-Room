@@ -1,10 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2"; // Import SweetAlert2
+import { db } from "../firebaseConfig"; // Import Firebase Firestore
+import { doc, updateDoc } from "firebase/firestore";
+import { auth } from "../firebaseConfig"; // Import Firebase Auth
 
 const SkinToneDetection = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [recommendedColors, setRecommendedColors] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const startWebcam = async () => {
@@ -23,7 +28,7 @@ const SkinToneDetection = () => {
     startWebcam();
   }, []);
 
-  const analyzeSkinTone = () => {
+  const analyzeSkinTone = async () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -37,6 +42,16 @@ const SkinToneDetection = () => {
     const colors = getRecommendedColors(skinColor);
     setRecommendedColors(colors);
 
+    // Save skin tone to Firestore for the current user
+    const user = auth.currentUser;
+    if (user) {
+      const userDoc = doc(db, "users", user.uid);
+      await updateDoc(userDoc, {
+        skinTone: skinColor,
+        recommendedColors: colors,
+      });
+    }
+
     // Show SweetAlert with detected skin tone and recommended colors
     Swal.fire({
       title: `Detected Skin Tone: ${skinColor}`,
@@ -45,6 +60,9 @@ const SkinToneDetection = () => {
         .join("")}</ul>`,
       icon: "info",
       confirmButtonText: "OK",
+    }).then(() => {
+      // Redirect to user dahsboard
+      navigate("/dummy");
     });
   };
 
@@ -80,7 +98,6 @@ const SkinToneDetection = () => {
     const rgRatio = r / (g + 1);
     const rbRatio = r / (b + 1);
 
-    // Simple skin color detection rule
     return rgRatio > 1.4 && rbRatio > 1.3 && r > 60 && g > 30 && b > 15;
   };
 
@@ -92,7 +109,6 @@ const SkinToneDetection = () => {
   };
 
   const getRecommendedColors = (skinTone) => {
-    // Define color recommendations based on skin tone
     const recommendations = {
       Light: ["Pastels", "Soft Pink", "Lavender", "Mint Green"],
       Medium: ["Jewel Tones", "Emerald", "Sapphire Blue", "Ruby Red"],

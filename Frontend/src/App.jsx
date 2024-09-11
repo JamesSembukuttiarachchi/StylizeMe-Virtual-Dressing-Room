@@ -1,7 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import EnterUserData from "./components/EnterUserData.jsx";
-import UserSizeRecm from "./components/UserSizeRecm.jsx";
 import SkinToneDetection from "./components/SkinToneDetection.jsx";
 import TShirtForm from "./components/TShirtForm.jsx";
 import Signup from "./components/Signup.jsx";
@@ -15,8 +13,9 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/detectskintone" element={<SkinToneDetection />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/admin"
             element={
@@ -26,9 +25,6 @@ const App = () => {
             }
           />
           <Route path="/tshirt" element={<TShirtForm />} />
-          <Route path="/userdata" element={<EnterUserData />} />
-          <Route path="/size" element={<UserSizeRecm />} />
-          <Route path="/detectskintone" element={<SkinToneDetection />} />
           <Route path="/dummy" element={<dummy />} />
         </Routes>
       </BrowserRouter>

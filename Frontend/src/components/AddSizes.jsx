@@ -1,13 +1,14 @@
 import React from "react";
+import tshirtImage from "../assets/tshirt-image.jpg";
+import shirtImage from "../assets/shirt-image.jpg";
+import blouseImage from "../assets/blouse-image.jpg";
 
 const AddSizes = () => {
   // List of available clothes types
   const clothes = [
-    { name: "T-shirt", img: "https://via.placeholder.com/150?text=T-shirt" },
-    { name: "Shirt", img: "https://via.placeholder.com/150?text=Shirt" },
-    { name: "Skirt", img: "https://via.placeholder.com/150?text=Skirt" },
-    { name: "Blouse", img: "https://via.placeholder.com/150?text=Blouse" },
-    { name: "Trousers", img: "https://via.placeholder.com/150?text=Trousers" },
+    { name: "T-shirt", img: tshirtImage },
+    { name: "Shirt", img: shirtImage },
+    { name: "Blouse", img: blouseImage },
     { name: "Jacket", img: "https://via.placeholder.com/150?text=Jacket" },
   ];
 

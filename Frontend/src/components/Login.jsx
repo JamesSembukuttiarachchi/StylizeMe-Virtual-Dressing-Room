@@ -66,12 +66,12 @@ const Login = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div
-        className="w-1/2 bg-cover bg-center"
+        className="w-2/5 bg-cover bg-center"
         style={{ backgroundImage: `url(${loginImage})` }}
       >
         {/* You can add additional content or styling here if needed */}
       </div>
-      <div className="w-1/2 flex items-center justify-center">
+      <div className="w-3/5 flex items-center justify-center">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
           <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-4">
             Login
