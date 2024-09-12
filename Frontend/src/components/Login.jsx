@@ -36,7 +36,7 @@ const Login = () => {
           showConfirmButton: false,
         }).then(() => {
           // Redirect to admin page if user is an admin
-          navigate("/admin");
+          navigate("/brands");
         });
       } else {
         // SweetAlert success for non-admin user login
