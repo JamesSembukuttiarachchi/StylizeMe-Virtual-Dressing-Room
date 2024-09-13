@@ -172,20 +172,38 @@ const Brands = () => {
       }}
     >
       <h1 className="text-3xl font-bold mb-8 text-center text-white">
-        Dress Sizes
+        Dress Sizes Overview
       </h1>
       <Tabs
         selectedIndex={selectedTab}
         onSelect={(index) => setSelectedTab(index)}
       >
         <TabList className="flex justify-center mb-6">
-          <Tab className="text-white font-semibold text-lg px-6 py-2 border-b-2 border-transparent hover:border-blue-500 cursor-pointer transition duration-300">
+          <Tab
+            className={`font-semibold text-lg px-6 py-2 border-b-2 cursor-pointer transition duration-300 ${
+              selectedTab === 0
+                ? "text-black border-white"
+                : "text-white border-transparent hover:border-blue-500"
+            }`}
+          >
             T-Shirts
           </Tab>
-          <Tab className="text-white font-semibold text-lg px-6 py-2 border-b-2 border-transparent hover:border-blue-500 cursor-pointer transition duration-300">
+          <Tab
+            className={`font-semibold text-lg px-6 py-2 border-b-2 cursor-pointer transition duration-300 ${
+              selectedTab === 1
+                ? "text-black border-white"
+                : "text-white border-transparent hover:border-blue-500"
+            }`}
+          >
             Shirts
           </Tab>
-          <Tab className="text-white font-semibold text-lg px-6 py-2 border-b-2 border-transparent hover:border-blue-500 cursor-pointer transition duration-300">
+          <Tab
+            className={`font-semibold text-lg px-6 py-2 border-b-2 cursor-pointer transition duration-300 ${
+              selectedTab === 2
+                ? "text-black border-white"
+                : "text-white border-transparent hover:border-blue-500"
+            }`}
+          >
             Blouses
           </Tab>
         </TabList>
@@ -246,16 +264,17 @@ const Brands = () => {
                     },
                   })
                 }
-                className="border border-gray-300 p-3 rounded w-full"
+                className="bg-white border border-gray-300 rounded w-full py-2 px-4"
               />
             </div>
-            {/* Add more input fields for other sizes (Medium, Large, etc.) */}
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
-              onClick={handleUpdate}
-            >
-              Update
-            </button>
+            <div>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                onClick={handleUpdate}
+              >
+                Update
+              </button>
+            </div>
           </div>
         </div>
       )}
