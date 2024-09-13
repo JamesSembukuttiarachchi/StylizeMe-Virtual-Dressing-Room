@@ -25,7 +25,15 @@ const ViewTshirt = () => {
       ) : (
         <PoseDetection />
       )}
-
+      {!showOverlay ? (
+        <TShirtCard
+          title="Black Sunglass"
+          image={sunglass}
+          onShowOverlay={handleShowOverlay}
+        />
+      ) : (
+        <PoseDetection />
+      )}
         </div>
 
     </div>

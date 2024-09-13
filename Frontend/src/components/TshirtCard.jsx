@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import tshirtModel from "../assets/AnimateTshirt.glb";
+import tshirtModel from "../assets/Animated Tshirt.glb";
 
 const TShirtCard = ({ title, image, onShowOverlay }) => {
   const [show3DModel, setShow3DModel] = useState(false);
@@ -13,12 +13,12 @@ const TShirtCard = ({ title, image, onShowOverlay }) => {
   }
   return (
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden my-4">
-      <img src={image} alt={title} className="w-full h-64 object-cover" />
+      <img src={image} alt={title} className="p-4 w-full h-64 object-cover" />
       <div className="p-4">
         <h3 className="text-lg font-semibold mb-2">{title}</h3>
         <button
           onClick={onShowOverlay}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
+          className="mt-4 w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
         >
           Show in Camera
         </button>
