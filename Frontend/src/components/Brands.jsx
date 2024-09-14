@@ -79,6 +79,7 @@ const Brands = () => {
     setEditData({ ...item, type });
   };
 
+  // Update the data in Firebase
   const handleUpdate = async () => {
     try {
       const docRef = doc(db, editData.type, editData.id);
@@ -141,7 +142,21 @@ const Brands = () => {
             <td className="px-4 py-2">
               <button
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                onClick={() => handleDelete(item.id, type)}
+                onClick={() => {
+                  Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      handleDelete(item.id, type);
+                    }
+                  });
+                }}
               >
                 Delete
               </button>
@@ -246,11 +261,9 @@ const Brands = () => {
           </h2>
           <div className="space-y-4">
             <div>
-              <label className="block mb-2 text-gray-300">
-                Small Size - Neck Size (inches):
-              </label>
+              <label className="block mb-2 text-white">Small Size:</label>
               <input
-                type="number"
+                type="text"
                 value={editData.sizes.Small.neckSize}
                 onChange={(e) =>
                   setEditData({
@@ -264,17 +277,224 @@ const Brands = () => {
                     },
                   })
                 }
-                className="bg-white border border-gray-300 rounded w-full py-2 px-4"
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Neck Size"
+              />
+              <input
+                type="text"
+                value={editData.sizes.Small.shoulderWidth}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      Small: {
+                        ...editData.sizes.Small,
+                        shoulderWidth: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Shoulder Width"
+              />
+              <input
+                type="text"
+                value={editData.sizes.Small.length}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      Small: {
+                        ...editData.sizes.Small,
+                        length: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Length"
+              />
+            </div>
+            {/* Repeat for Medium, Large, Extra Large sizes */}
+            <div>
+              <label className="block mb-2 text-white">Medium Size:</label>
+              <input
+                type="text"
+                value={editData.sizes.Medium.neckSize}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      Medium: {
+                        ...editData.sizes.Medium,
+                        neckSize: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Neck Size"
+              />
+              <input
+                type="text"
+                value={editData.sizes.Medium.shoulderWidth}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      Medium: {
+                        ...editData.sizes.Medium,
+                        shoulderWidth: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Shoulder Width"
+              />
+              <input
+                type="text"
+                value={editData.sizes.Medium.length}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      Medium: {
+                        ...editData.sizes.Medium,
+                        length: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Length"
               />
             </div>
             <div>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                onClick={handleUpdate}
-              >
-                Update
-              </button>
+              <label className="block mb-2 text-white">Large Size:</label>
+              <input
+                type="text"
+                value={editData.sizes.Large.neckSize}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      Large: {
+                        ...editData.sizes.Large,
+                        neckSize: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Neck Size"
+              />
+              <input
+                type="text"
+                value={editData.sizes.Large.shoulderWidth}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      Large: {
+                        ...editData.sizes.Large,
+                        shoulderWidth: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Shoulder Width"
+              />
+              <input
+                type="text"
+                value={editData.sizes.Large.length}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      Large: {
+                        ...editData.sizes.Large,
+                        length: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Length"
+              />
             </div>
+            <div>
+              <label className="block mb-2 text-white">Extra Large Size:</label>
+              <input
+                type="text"
+                value={editData.sizes.ExtraLarge.neckSize}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      ExtraLarge: {
+                        ...editData.sizes.ExtraLarge,
+                        neckSize: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Neck Size"
+              />
+              <input
+                type="text"
+                value={editData.sizes.ExtraLarge.shoulderWidth}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      ExtraLarge: {
+                        ...editData.sizes.ExtraLarge,
+                        shoulderWidth: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Shoulder Width"
+              />
+              <input
+                type="text"
+                value={editData.sizes.ExtraLarge.length}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    sizes: {
+                      ...editData.sizes,
+                      ExtraLarge: {
+                        ...editData.sizes.ExtraLarge,
+                        length: e.target.value,
+                      },
+                    },
+                  })
+                }
+                className="w-full px-3 py-2 border rounded"
+                placeholder="Length"
+              />
+            </div>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              onClick={handleUpdate}
+            >
+              Update
+            </button>
           </div>
         </div>
       )}

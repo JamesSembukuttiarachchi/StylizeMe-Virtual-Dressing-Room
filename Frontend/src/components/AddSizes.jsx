@@ -81,36 +81,38 @@ const AddSizes = () => {
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-md max-w-lg mx-auto my-10 relative"
       >
-        <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Brand Name:
-          </label>
-          <input
-            type="text"
-            value={brandName}
-            onChange={(e) => setBrandName(e.target.value)}
-            required
-            placeholder="Enter brand name"
-            className="border border-gray-300 p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-          />
-        </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Dress:
-          </label>
-          <select
-            value={dress}
-            onChange={(e) => setDress(e.target.value)}
-            required
-            className="border border-gray-300 p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-          >
-            <option value="" disabled>
-              Select Dress Type
-            </option>
-            <option value="tshirt">T-shirt</option>
-            <option value="shirt">Shirt</option>
-            <option value="blouse">Blouse</option>
-          </select>
+        <div className="flex justify-between space-x-5">
+          <div className="mb-6 w-3/5">
+            <label className="block text-gray-700 font-semibold mb-2">
+              Brand Name:
+            </label>
+            <input
+              type="text"
+              value={brandName}
+              onChange={(e) => setBrandName(e.target.value)}
+              required
+              placeholder="Enter brand name"
+              className="border border-gray-300 p-1 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+            />
+          </div>
+          <div className="mb-6 w-2/5">
+            <label className="block text-gray-700 font-semibold mb-2">
+              Dress Type:
+            </label>
+            <select
+              value={dress}
+              onChange={(e) => setDress(e.target.value)}
+              required
+              className="border border-gray-300 p-1 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+            >
+              <option value="" disabled>
+                Select Dress Type
+              </option>
+              <option value="tshirt">T-shirt</option>
+              <option value="shirt">Shirt</option>
+              <option value="blouse">Blouse</option>
+            </select>
+          </div>
         </div>
 
         {/* Tabbed Interface for Size Measurements */}
@@ -146,7 +148,7 @@ const AddSizes = () => {
                   onChange={(e) => handleSizeChange(e, "Small")}
                   required
                   placeholder="Circumference of your neck (in inches)."
-                  className="border border-gray-300 p-3 rounded w-full"
+                  className="border border-gray-300 p-1 rounded w-full"
                 />
               </div>
               <div>
@@ -160,7 +162,7 @@ const AddSizes = () => {
                   onChange={(e) => handleSizeChange(e, "Small")}
                   required
                   placeholder="Measure the shoulder width (in inches)."
-                  className="border border-gray-300 p-3 rounded w-full"
+                  className="border border-gray-300 p-1 rounded w-full"
                 />
               </div>
               <div>
@@ -174,7 +176,7 @@ const AddSizes = () => {
                   onChange={(e) => handleSizeChange(e, "Small")}
                   required
                   placeholder="Length from shoulder to hem (in inches)"
-                  className="border border-gray-300 p-3 rounded w-full"
+                  className="border border-gray-300 p-1 rounded w-full"
                 />
               </div>
             </div>
