@@ -257,7 +257,7 @@ const Brands = () => {
       {editData && (
         <div className="mt-8">
           <h2 className="text-2xl font-semibold mb-4 text-white">
-            Edit {editData.brandName}
+            Edit Sizes of {editData.brandName} {editData.type}s
           </h2>
           <div className="space-y-4">
             <div>
