@@ -157,7 +157,7 @@ const FeedbackForm = () => {
               type="submit"
               className="px-4 py-2 font-semibold text-white bg-indigo-500 rounded-md shadow w-150 hover:bg-indigo-700"
             >
-              Submit Feedback
+              Submit My Feedback
             </button>
           </div>
         </form>
