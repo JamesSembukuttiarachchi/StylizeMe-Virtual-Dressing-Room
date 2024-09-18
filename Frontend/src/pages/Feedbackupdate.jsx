@@ -120,7 +120,7 @@ const FeedbackUpdate = () => {
             >
               <option value="">Select</option>
               <option value="excellent">Excellent</option>
-              <option value="good">Good</option>
+              <option value="good">very Good </option>
               <option value="average">Average</option>
               <option value="poor">Poor</option>
             </select>

@@ -4,7 +4,7 @@ import { db } from "../firebaseConfig";
 import { doc, deleteDoc, getDoc } from "firebase/firestore";
 import headerImage from '../images/Header5.png'; // Importing the header image
 import Swal from 'sweetalert2'; // Import SweetAlert2
-
+//Fedback delete
 const FeedbackDelete = () => {
   const { feedbackId } = useParams();
   const [feedbackData, setFeedbackData] = useState(null);

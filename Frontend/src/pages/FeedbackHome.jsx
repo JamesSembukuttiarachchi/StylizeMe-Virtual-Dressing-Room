@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import headerImage from '../images/Header.png'; // Importing the header image
-
+//Homepage
 const FeedbackHome = () => {
   const [feedbacks, setFeedbacks] = useState([]);
 

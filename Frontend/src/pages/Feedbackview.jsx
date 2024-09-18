@@ -78,7 +78,7 @@ const FeedbackView = () => {
                 onClick={() => navigate(`/feedbackdelete/${feedbackId}`)}
                 className="px-4 py-2 font-semibold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                Delete Feedback
+                Delete My Feedback
               </button>
             </div>
           </div>
