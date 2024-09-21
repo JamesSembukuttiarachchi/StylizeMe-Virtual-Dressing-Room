@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import tshirtModel from "../assets/Animated Tshirt.glb";
+import tshirtModel from "../assets/colorTshirt.glb";
 
 const TShirtCard = ({ title, image, onShowOverlay }) => {
   const [show3DModel, setShow3DModel] = useState(false);
