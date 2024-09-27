@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebaseConfig";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import Swal from "sweetalert2";
 import UpdateProductModal from "./UpdateProductModal";
 
 const ManageProducts = () => {
@@ -11,9 +12,9 @@ const ManageProducts = () => {
   const fetchProducts = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "products"));
-      const productsList = querySnapshot.docs.map(doc => ({
+      const productsList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       }));
       setProducts(productsList);
     } catch (error) {
@@ -41,23 +42,30 @@ const ManageProducts = () => {
   };
 
   const handleDeleteProduct = async (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      try {
-        // Delete the product from Firestore
-        await deleteDoc(doc(db, "products", id));
-        
-        // Update the local state
-        setProducts(products.filter((product) => product.id !== id));
-      } catch (error) {
-        console.error("Error deleting product:", error);
-        // Optionally, show a user-friendly message
-        alert("Failed to delete product. Please try again.");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteDoc(doc(db, "products", id));
+          setProducts(products.filter((product) => product.id !== id));
+          Swal.fire("Deleted!", "The product has been deleted.", "success");
+        } catch (error) {
+          console.error("Error deleting product:", error);
+          Swal.fire("Error!", "Failed to delete product. Please try again.", "error");
+        }
       }
-    }
+    });
   };
 
   return (
-    <div className="max-w-full mx-auto mt-10 p-6 bg-blue-100 rounded-lg shadow-lg">
+    <div className="max-w-full mx-auto p-6 bg-blue-100 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold text-center mb-6">Manage Products</h2>
       <table className="min-w-full bg-white border rounded-lg">
         <thead>

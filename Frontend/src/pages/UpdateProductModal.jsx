@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { db, storage } from "../firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Swal from 'sweetalert2';
 
 const UpdateProductModal = ({ product, onClose, onUpdate }) => {
   const [name, setName] = useState(product?.name || "");
@@ -41,11 +42,23 @@ const UpdateProductModal = ({ product, onClose, onUpdate }) => {
         imageUrl: newImageUrl
       });
 
-      onUpdate();
-      onClose();
+      Swal.fire({
+        title: 'Success!',
+        text: 'Product updated successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        onUpdate();
+        onClose();
+      });
     } catch (error) {
       console.error("Error updating product:", error);
-      alert("Failed to update product. Please try again.");
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to update product. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   };
 

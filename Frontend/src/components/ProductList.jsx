@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
-const ProductList = () => {
+const ProductList = ({ selectedCategory }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(12); // Number of products per page
@@ -76,7 +75,7 @@ const ProductList = () => {
           className="p-2 border rounded-lg shadow-sm w-full md:w-1/3 mb-4 md:mb-0"
         />
         <div className="flex space-x-4">
-          <select
+          {/* <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="p-2 border rounded-lg shadow-sm"
@@ -84,15 +83,17 @@ const ProductList = () => {
             <option value="">All Categories</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
-          </select>
+          </select> */}
           <select
             value={selectedBrand}
             onChange={(e) => setSelectedBrand(e.target.value)}
             className="p-2 border rounded-lg shadow-sm"
           >
             <option value="">All Brands</option>
-            <option value="Brand A">Brand A</option>
-            <option value="Brand B">Brand B</option>
+            <option value="OVS">OVS</option>
+            <option value="H&M">H&M</option>
+            <option value="Adidas">Adidas</option>
+            <option value="AVM">AVM</option>
           </select>
         </div>
       </div>
@@ -106,10 +107,8 @@ const ProductList = () => {
               className="w-full h-48 object-cover mb-4 rounded-md border border-gray-200"
             />
             <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-            <p className="text-gray-600 mb-1">Brand: <span className="font-medium">{product.brand}</span></p>
-            <p className="text-gray-600 mb-1">Category: <span className="font-medium">{product.category}</span></p>
-            <p className="text-gray-600 mb-1">Price: <span className="font-medium">${product.price}</span></p>
-            <p className="text-gray-600 mb-2">Quantity: <span className="font-medium">{product.quantity}</span></p>
+            <p className="text-gray-600 mb-1"><span className="font-medium">{product.brand}</span></p>
+            <p className="text-gray-600 mb-1"><span className="font-medium">${product.price}</span></p>
             <div className="flex flex-wrap gap-2">
               {product.colors.map((color, index) => (
                 <div
