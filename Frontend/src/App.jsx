@@ -7,6 +7,9 @@ import Login from "./components/Login.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 import dummy from "./components/dummy.jsx";
 import Brands from "./components/Brands.jsx";
+import SaveSizes from "./components/saveSizes.jsx";
+import UserProfile from "./components/UserProfile.jsx";
+import UsageReport from "./components/UsageReport.jsx";
 
 const App = () => {
   return (
@@ -20,6 +23,9 @@ const App = () => {
           <Route path="/addsizes" element={<AddSizes />} />
           <Route path="/dummy" element={<dummy />} />
           <Route path="/brands" element={<Brands />} />
+          <Route path="/savesizes" element={<SaveSizes />} />
+          <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/usagereport" element={<UsageReport />} />
         </Routes>
       </BrowserRouter>
     </div>

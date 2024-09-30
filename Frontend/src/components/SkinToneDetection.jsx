@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2"; // Import SweetAlert2
-import { db } from "../firebaseConfig"; // Import Firebase Firestore
+import Swal from "sweetalert2";
+import { db } from "../firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
-import { auth } from "../firebaseConfig"; // Import Firebase Auth
+import { auth } from "../firebaseConfig";
 
 const SkinToneDetection = () => {
   const videoRef = useRef(null);
@@ -52,7 +52,6 @@ const SkinToneDetection = () => {
       });
     }
 
-    // Show SweetAlert with detected skin tone and recommended colors
     Swal.fire({
       title: `Detected Skin Tone: ${skinColor}`,
       html: `<h3>Recommended Dress Colors:</h3><ul>${colors
@@ -61,8 +60,7 @@ const SkinToneDetection = () => {
       icon: "info",
       confirmButtonText: "OK",
     }).then(() => {
-      // Redirect to user dahsboard
-      navigate("/dummy");
+      navigate("/savesizes");
     });
   };
 

@@ -9,9 +9,9 @@ import signupImage from "../assets/signup-image.jpg";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState(""); // New field for name
-  const [gender, setGender] = useState(""); // New field for gender
-  const [height, setHeight] = useState(""); // New field for height in cm
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+  const [height, setHeight] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -28,14 +28,16 @@ const Signup = () => {
       // Add user info to Firestore with additional fields
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
-        name: name, // Add name to Firestore
-        gender: gender, // Add gender to Firestore
-        height: height, // Add height to Firestore
+        name: name,
+        gender: gender,
+        height: height,
         isAdmin: false, // By default, the user is not an admin
         skinTone: null, // Placeholder for skin tone to be added later
+        neckSize: null,
+        shoulderWidth: null,
+        length: null,
       });
 
-      // SweetAlert success for signup
       Swal.fire({
         title: "Success!",
         text: "Welcome to StylizeMe! Now, Let's detect your skin tone",
@@ -43,12 +45,10 @@ const Signup = () => {
         timer: 2000,
         showConfirmButton: false,
       }).then(() => {
-        // Redirect to skin tone detection page
         navigate("/detectskintone");
       });
     } catch (err) {
       setError(err.message);
-      // SweetAlert error for signup failure
       Swal.fire({
         title: "Failed!",
         text: err.message,
@@ -63,9 +63,7 @@ const Signup = () => {
       <div
         className="w-2/5 bg-cover bg-center"
         style={{ backgroundImage: `url(${signupImage})` }}
-      >
-        {/* You can add additional content or styling here if needed */}
-      </div>
+      ></div>
       <div className="w-3/5 flex items-center justify-center bg-gray-100">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
           <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-4">
