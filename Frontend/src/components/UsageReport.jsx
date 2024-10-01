@@ -102,6 +102,8 @@ const UsageReport = () => {
   // Generate and download PDF
   const generatePDF = async () => {
     const pdf = new jsPDF("p", "mm", "a4");
+    const pageWidth = pdf.internal.pageSize.getWidth(); // Get page width
+    const pageHeight = pdf.internal.pageSize.getHeight(); // Get page height
 
     // Capture the charts using html2canvas
     const genderChart = document.getElementById("genderChart");
@@ -116,10 +118,55 @@ const UsageReport = () => {
       const heightCanvas = await html2canvas(heightChart);
       const heightImage = heightCanvas.toDataURL("image/png");
 
-      // Add content to PDF
-      pdf.text("User Data Analytics", 10, 10);
-      pdf.addImage(genderImage, "PNG", 10, 20, 180, 90); // Adjust dimensions as needed
-      pdf.addImage(heightImage, "PNG", 10, 120, 180, 90);
+      // Title text centered
+      pdf.setFontSize(16);
+      pdf.text("User Data Analytics", pageWidth / 2, 10, { align: "center" });
+
+      // Add Gender Distribution chart
+      const genderWidth = 100; // Set a reasonable width for the PDF in mm
+      const genderHeight =
+        (genderCanvas.height / genderCanvas.width) * genderWidth; // Maintain aspect ratio
+      const genderX = (pageWidth - genderWidth) / 2; // Center horizontally
+
+      // Make sure to position the chart a bit lower to avoid clipping
+      const genderY = 30; // Adjust Y position to fit the chart properly
+      pdf.addImage(
+        genderImage,
+        "PNG",
+        genderX,
+        genderY,
+        genderWidth,
+        genderHeight
+      );
+
+      // Add Height Distribution chart below Gender Distribution
+      const heightWidth = 140; // Use a similar width as the gender chart
+      const heightHeight =
+        (heightCanvas.height / heightCanvas.width) * heightWidth; // Maintain aspect ratio
+      const heightX = (pageWidth - heightWidth) / 2; // Center horizontally
+
+      // Ensure the height chart is positioned lower, after the gender chart
+      const heightY = genderY + genderHeight + 30; // Add space between the two charts
+      if (heightY + heightHeight > pageHeight) {
+        pdf.addPage(); // Add a new page if the chart exceeds the page height
+        pdf.addImage(
+          heightImage,
+          "PNG",
+          heightX,
+          20,
+          heightWidth,
+          heightHeight
+        );
+      } else {
+        pdf.addImage(
+          heightImage,
+          "PNG",
+          heightX,
+          heightY,
+          heightWidth,
+          heightHeight
+        );
+      }
 
       // Save the PDF
       pdf.save("UserDataAnalytics.pdf");
@@ -151,7 +198,7 @@ const UsageReport = () => {
         {heightData && (
           <div
             id="heightChart"
-            className="p-4 shadow-lg rounded-lg bg-white mx-auto flex flex-col items-center"
+            className="p-4 w-4/5 shadow-lg rounded-lg bg-white"
           >
             <h2 className="text-xl font-semibold text-center mb-4">
               Height Distribution
