@@ -27,6 +27,8 @@ const AdminDashboard = () => {
         <h1 className="text-3xl font-bold mb-8 text-center text-white">
           Welcome to the Admin's Dashboard
         </h1>
+        <br />
+        <br />
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mx-4">
           {/* Card 1: Product Catalog */}
           <div className="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105">
