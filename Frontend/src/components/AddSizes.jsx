@@ -1,12 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Swal from "sweetalert2";
-import bgImage from "../assets/store-bg-image.jpg"; // Import the background image
+import bgImage from "../assets/store-bg-image.jpg";
 
 const AddSizes = () => {
+  const navigate = useNavigate();
+
+  // Navigation functions
+  const goToDashboard = () => navigate("/dashboard");
+
   const [brandName, setBrandName] = useState("");
   const [dress, setDress] = useState("");
   const [sizes, setSizes] = useState({
@@ -334,6 +340,7 @@ const AddSizes = () => {
         </Tabs>
 
         <button
+          onClick={goToDashboard}
           type="submit"
           disabled={!isFormComplete}
           className={`w-full p-3 text-white rounded mt-4 ${

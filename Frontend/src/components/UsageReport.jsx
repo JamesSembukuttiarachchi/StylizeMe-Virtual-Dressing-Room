@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import bgImage from "../assets/store-bg-image.jpg";
 import { Bar, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -26,6 +28,11 @@ ChartJS.register(
 );
 
 const UsageReport = () => {
+  const navigate = useNavigate();
+
+  // Navigation functions
+  const goToDashboard = () => navigate("/dashboard");
+
   const [usersData, setUsersData] = useState([]);
   const [genderData, setGenderData] = useState(null);
   const [heightData, setHeightData] = useState(null);
@@ -174,48 +181,68 @@ const UsageReport = () => {
   };
 
   return (
-    <div className="container mx-auto mt-8">
-      <h5 className="text-xl font-bold text-center mb-6">StylizeMe</h5>
-      <h1 className="text-3xl font-bold text-center mb-6">
-        User Data Analytics
-      </h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-        {/* Gender Distribution */}
-        {genderData && (
-          <div
-            id="genderChart"
-            className="p-4 w-3/5 shadow-lg rounded-lg bg-white mx-auto flex flex-col items-center"
-          >
-            <h2 className="text-xl font-semibold text-center mb-4">
-              Gender Distribution
-            </h2>
-            <Pie data={genderData} />
+    <div
+      className="container mx-auto p-8"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+        backgroundAttachment: "fixed",
+        overflow: "hidden",
+      }}
+    >
+      <div className="container mx-auto mt-8">
+        <h1 className="text-3xl font-bold text-center mb-6 text-white">
+          User Data Analytics
+        </h1>
+        {/* Download PDF Button */}
+        <div className="justify-center text-center flex gap-10">
+          <div className="text-center mt-8 gap-3">
+            <button
+              onClick={generatePDF}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Download PDF Report
+            </button>
           </div>
-        )}
-
-        {/* Height Distribution */}
-        {heightData && (
-          <div
-            id="heightChart"
-            className="p-4 w-4/5 shadow-lg rounded-lg bg-white"
-          >
-            <h2 className="text-xl font-semibold text-center mb-4">
-              Height Distribution
-            </h2>
-            <Bar data={heightData} />
+          <div className="text-center mt-8 gap-3">
+            <button
+              onClick={goToDashboard}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Return to Dashboard
+            </button>
           </div>
-        )}
-      </div>
+        </div>
+        <br />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+          {/* Gender Distribution */}
+          {genderData && (
+            <div
+              id="genderChart"
+              className="p-4 w-3/5 shadow-lg rounded-lg bg-white mx-auto flex flex-col items-center"
+            >
+              <h2 className="text-xl font-semibold text-center mb-4">
+                Gender Distribution
+              </h2>
+              <Pie data={genderData} />
+            </div>
+          )}
 
-      {/* Download PDF Button */}
-      <div className="text-center mt-8">
-        <button
-          onClick={generatePDF}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Download PDF Report
-        </button>
+          {/* Height Distribution */}
+          {heightData && (
+            <div
+              id="heightChart"
+              className="p-4 w-4/5 shadow-lg rounded-lg bg-white"
+            >
+              <h2 className="text-xl font-semibold text-center mb-4">
+                Height Distribution
+              </h2>
+              <Bar data={heightData} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import Brands from "./components/Brands.jsx";
 import SaveSizes from "./components/saveSizes.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import UsageReport from "./components/UsageReport.jsx";
+import AdminDashboard from "./components/AdminDashboard.jsx";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/savesizes" element={<SaveSizes />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/usagereport" element={<UsageReport />} />
+          <Route path="/dashboard" element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter>
     </div>

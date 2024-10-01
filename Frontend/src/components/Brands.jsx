@@ -10,7 +10,7 @@ import { db } from "../firebaseConfig";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Swal from "sweetalert2";
-import bgImage from "../assets/store-bg-image.jpg"; // Import the background image
+import bgImage from "../assets/store-bg-image.jpg";
 
 const Brands = () => {
   const [selectedTab, setSelectedTab] = useState(0);
