@@ -10,7 +10,6 @@ import bgImage from "../assets/store-bg-image.jpg";
 const AddSizes = () => {
   const navigate = useNavigate();
 
-  // Navigation functions
   const goToDashboard = () => navigate("/dashboard");
 
   const [brandName, setBrandName] = useState("");
@@ -40,10 +39,9 @@ const AddSizes = () => {
     };
 
     try {
-      const collectionRef = collection(db, dress); // referencing "brandname" document in "tshirt" collection
+      const collectionRef = collection(db, dress);
       await addDoc(collectionRef, data);
 
-      // SweetAlert2 for success
       Swal.fire({
         title: "Success!",
         text: "The size recommendation for the brand has been successfully added.",
@@ -53,7 +51,6 @@ const AddSizes = () => {
     } catch (error) {
       console.error("Error writing document: ", error);
 
-      // SweetAlert2 for error
       Swal.fire({
         title: "Error!",
         text: "Failed to add data. Please try again.",
@@ -73,7 +70,7 @@ const AddSizes = () => {
 
   return (
     <div
-      className="container mx-auto p-8"
+      className="mx-auto p-8"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
@@ -121,7 +118,6 @@ const AddSizes = () => {
           </div>
         </div>
 
-        {/* Tabbed Interface for Size Measurements */}
         <Tabs className="">
           <TabList className="flex justify-center mb-6">
             <Tab className="font-semibold text-xl px-10 py-2 border-b-2 border-transparent hover:border-blue-500 cursor-pointer transition duration-300">
@@ -340,16 +336,19 @@ const AddSizes = () => {
         </Tabs>
 
         <button
-          onClick={goToDashboard}
           type="submit"
           disabled={!isFormComplete}
-          className={`w-full p-3 text-white rounded mt-4 ${
-            isFormComplete
-              ? "bg-blue-500 hover:bg-blue-600"
-              : "bg-gray-400 cursor-not-allowed"
-          }`}
+          className={`w-full mt-6 p-3 rounded-lg bg-${
+            isFormComplete ? "blue-500" : "gray-400"
+          } text-white font-bold transition-colors duration-300`}
         >
           Submit
+        </button>
+        <button
+          onClick={goToDashboard}
+          className="w-full mt-4 p-3 rounded-lg bg-gray-500 text-white font-bold transition-colors duration-300"
+        >
+          Dashboard
         </button>
       </form>
     </div>

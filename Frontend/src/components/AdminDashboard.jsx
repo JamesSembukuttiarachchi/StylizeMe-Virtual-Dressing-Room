@@ -9,21 +9,22 @@ const AdminDashboard = () => {
   const goToProductCatalog = () => navigate("/manage-products");
   const goToAddDressSizes = () => navigate("/addsizes");
   const goToUserDataAnalytics = () => navigate("/usagereport");
-  const goTpBrands = () => navigate("/brands");
+  const goToBrands = () => navigate("/brands");
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div
-        className="container mx-auto p-8"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          minHeight: "100vh",
-          backgroundAttachment: "fixed",
-          overflow: "hidden",
-        }}
-      >
+    <div
+      className="flex justify-center items-center"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh", // Ensures full-screen height
+        width: "100vw", // Ensures full-screen width
+        backgroundAttachment: "fixed",
+      }}
+    >
+      <div className="container mx-auto p-8">
         <h1 className="text-3xl font-bold mb-8 text-center text-white">
           Welcome to the Admin's Dashboard
         </h1>
@@ -74,7 +75,7 @@ const AdminDashboard = () => {
               up-to-date for a better customer experience.
             </p>
             <button
-              onClick={goTpBrands}
+              onClick={goToBrands}
               className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600"
             >
               View Brands
