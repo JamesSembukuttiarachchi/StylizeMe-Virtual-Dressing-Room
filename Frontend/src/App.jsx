@@ -15,6 +15,13 @@ import AddProduct from "./pages/AddProduct"; // Adjust the path as necessary
 import ManageProducts from "./pages/ManageProducts"; // Adjust the path as necessary
 import ProductDetails from "./components/ProductDetails";
 import ProductList from "./components/ProductList";
+import PoseDetection from './components/PoseDetection'
+import ViewTshirt from './pages/ViewTshirt'
+import ProductCard from './components/Product'
+import ShoppingHome from './pages/ShoppingHome';
+import FaceMeshAR from './components/FaceMeshAR';
+import ARHoodie from './components/ARHoodie';
+import ARCap from './components/ARCap';
 
 const App = () => {
   return (
@@ -43,6 +50,12 @@ const App = () => {
           <Route path="/manage-products" element={<ManageProducts />} />
           <Route path="/menu" element={<ProductList />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/" element={<ProductCard />} />
+          <Route path="/view" element={<ViewTshirt />} />
+          <Route path="/home" element={<ShoppingHome/>}/>
+          <Route path="/glass" element={<FaceMeshAR/>}/>
+          <Route path="/hood" element={<ARHoodie/>}/>
+          <Route path="/cap" element={<ARCap/>}/>
         </Routes>
       </BrowserRouter>
     </div>
