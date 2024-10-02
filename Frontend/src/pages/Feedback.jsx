@@ -7,8 +7,8 @@ import headerImage from '../images/Header2.png'; // Importing the header image
 
 const FeedbackForm = () => {
   const [formData, setFormData] = useState({
-    userName: '', // New field for user's name
-    userAddress: '', // New field for user's address
+    userName: '', // Field for user's name
+    userAddress: '', // Field for user's address
     experience: '',
     easeOfUse: '',
     patternSelection: '',
@@ -23,10 +23,12 @@ const FeedbackForm = () => {
       [e.target.name]: e.target.value,
     });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Save feedback form data to Firestore
       const docRef = await addDoc(collection(db, "feedback"), formData);
       console.log('Feedback submitted:', formData);
 
@@ -37,6 +39,7 @@ const FeedbackForm = () => {
         icon: 'success',
         confirmButtonText: 'OK',
       }).then(() => {
+        // Navigate to feedback view and pass feedbackId for display
         navigate(`/feedbackview/${docRef.id}`);
       });
     } catch (error) {
@@ -51,6 +54,16 @@ const FeedbackForm = () => {
       });
     }
   };
+
+  //dialogue flow chatbot
+  (function(d, m){
+    var kommunicateSettings = 
+        {"appId":"36667a53b4d4fc39ecd11fd88fd3589cc","popupWidget":true,"automaticChatOpenOnNavigation":true};
+    var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+    s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+    var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+    window.kommunicate = m; m._globals = kommunicateSettings;
+  })(document, window.kommunicate || {});
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -163,6 +176,7 @@ const FeedbackForm = () => {
         </form>
       </div>
     </div>
+    
   );
 };
 
