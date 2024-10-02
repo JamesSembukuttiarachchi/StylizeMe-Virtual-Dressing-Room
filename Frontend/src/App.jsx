@@ -15,19 +15,20 @@ import AddProduct from "./pages/AddProduct"; // Adjust the path as necessary
 import ManageProducts from "./pages/ManageProducts"; // Adjust the path as necessary
 import ProductDetails from "./components/ProductDetails";
 import ProductList from "./components/ProductList";
-import PoseDetection from './components/PoseDetection'
-import ViewTshirt from './pages/ViewTshirt'
-import ProductCard from './components/Product'
-import ShoppingHome from './pages/ShoppingHome';
-import FaceMeshAR from './components/FaceMeshAR';
-import ARHoodie from './components/ARHoodie';
-import ARCap from './components/ARCap';
+import PoseDetection from "./components/PoseDetection";
+import ViewTshirt from "./pages/ViewTshirt";
+import ProductCard from "./components/Product";
+import ShoppingHome from "./pages/ShoppingHome";
+import FaceMeshAR from "./components/FaceMeshAR";
+import ARHoodie from "./components/ARHoodie";
+import ARCap from "./components/ARCap";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
         <Routes>
+          {/*James*/}
           <Route path="/signup" element={<Signup />} />
           <Route path="/detectskintone" element={<SkinToneDetection />} />
           <Route path="/login" element={<Login />} />
@@ -45,17 +46,28 @@ const App = () => {
           <Route path="/savesizes" element={<SaveSizes />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/usagereport" element={<UsageReport />} />
-          <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+
+          {/*Amaya*/}
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/manage-products" element={<ManageProducts />} />
           <Route path="/menu" element={<ProductList />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+
+          {/*Rakindu*/}
           <Route path="/" element={<ProductCard />} />
           <Route path="/view" element={<ViewTshirt />} />
-          <Route path="/home" element={<ShoppingHome/>}/>
-          <Route path="/glass" element={<FaceMeshAR/>}/>
-          <Route path="/hood" element={<ARHoodie/>}/>
-          <Route path="/cap" element={<ARCap/>}/>
+          <Route path="/home" element={<ShoppingHome />} />
+          <Route path="/glass" element={<FaceMeshAR />} />
+          <Route path="/hood" element={<ARHoodie />} />
+          <Route path="/cap" element={<ARCap />} />
         </Routes>
       </BrowserRouter>
     </div>

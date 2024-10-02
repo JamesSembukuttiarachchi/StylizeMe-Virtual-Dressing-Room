@@ -3,6 +3,7 @@ import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import Card from "./Card";
 import Banner1 from "./banner1";
+import Layout from "./layout/Layout";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -97,7 +98,8 @@ const ProductList = () => {
   };
 
   return (
-    <div className="pt-2">
+    <Layout>
+       <div className="pt-2">
       {/* Search and Filter Section */}
       <div className="mb-4 p-2 bg-gray-300 rounded-lg shadow-lg">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
@@ -191,6 +193,8 @@ const ProductList = () => {
         </button>
       </div>
     </div>
+    </Layout>
+
   );
 };
 

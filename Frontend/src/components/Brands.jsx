@@ -11,6 +11,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Swal from "sweetalert2";
 import bgImage from "../assets/store-bg-image.jpg";
+import Layout from "./layout/Layout";
 
 const Brands = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -175,7 +176,8 @@ const Brands = () => {
   };
 
   return (
-    <div
+    <Layout>
+        <div
       className=" mx-auto p-8"
       style={{
         backgroundImage: `url(${bgImage})`,
@@ -499,6 +501,8 @@ const Brands = () => {
         </div>
       )}
     </div>
+    </Layout>
+
   );
 };
 
