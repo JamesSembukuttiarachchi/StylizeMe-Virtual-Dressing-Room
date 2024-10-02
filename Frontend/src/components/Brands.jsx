@@ -20,6 +20,7 @@ const Brands = () => {
     blouses: [],
   });
   const [editData, setEditData] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Fetching all dress types from Firebase
   useEffect(() => {
@@ -49,6 +50,13 @@ const Brands = () => {
 
     fetchData();
   }, []);
+
+  // Filtered dresses based on the search term
+  const filterDresses = (type) => {
+    return dresses[type].filter((item) =>
+      item.brandName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
 
   // Handling delete
   const handleDelete = async (id, type) => {
@@ -189,6 +197,16 @@ const Brands = () => {
       <h1 className="text-3xl font-bold mb-8 text-center text-white">
         Dress Sizes Overview
       </h1>
+      {/* Search Bar */}
+      <div className="mb-6 text-center">
+        <input
+          type="text"
+          placeholder="Search by brand name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="px-4 py-2 border rounded w-full max-w-md"
+        />
+      </div>
       <Tabs
         selectedIndex={selectedTab}
         onSelect={(index) => setSelectedTab(index)}
