@@ -11,6 +11,7 @@ const AddProduct = () => {
   const [clothType, setClothType] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
+  const [glbFile, setGlbFile] = useState(null); // State for the .glb file
   const [quantity, setQuantity] = useState("");
   const [colors, setColors] = useState(["#000000"]);
   const [description, setDescription] = useState("");
@@ -36,6 +37,32 @@ const AddProduct = () => {
         async () => {
           const imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
 
+          let glbFileUrl = null;
+          if (glbFile) {
+            const glbStorageRef = ref(storage, `3D_Modal/${glbFile.name}`);
+            const glbUploadTask = uploadBytesResumable(glbStorageRef, glbFile);
+
+            glbFileUrl = await new Promise((resolve, reject) => {
+              glbUploadTask.on(
+                "state_changed",
+                null,
+                (error) => {
+                  Swal.fire({
+                    icon: "error",
+                    title: "GLB Upload Failed",
+                    text: "An error occurred while uploading the GLB file. Please try again.",
+                  });
+                  console.error("GLB file upload failed:", error);
+                  reject(error);
+                },
+                async () => {
+                  const glbUrl = await getDownloadURL(glbUploadTask.snapshot.ref);
+                  resolve(glbUrl);
+                }
+              );
+            });
+          }
+
           await addDoc(collection(db, "products"), {
             name,
             brand,
@@ -45,6 +72,7 @@ const AddProduct = () => {
             quantity: parseInt(quantity),
             colors,
             imageUrl,
+            glbFileUrl, // Adding the glb file URL
             description,
           });
 
@@ -60,6 +88,7 @@ const AddProduct = () => {
           setClothType("");
           setPrice("");
           setImage(null);
+          setGlbFile(null);
           setQuantity("");
           setColors(["#000000"]);
           setDescription("");
@@ -95,7 +124,7 @@ const AddProduct = () => {
       className="flex justify-center items-center min-h-screen p-6 bg-cover bg-center"
       style={{ backgroundImage: "url('/addProduct-bg.jpg')" }} // Using the image from the public folder
     >
-      <div className="bg-gray-300 p-8 rounded-lg shadow-xl max-w-4xl w-full bg-opacity-100">
+      <div className="bg-[#d5d5cfe9] p-8 rounded-lg shadow-xl max-w-4xl w-full bg-opacity-100">
         <h2 className="text-3xl font-extrabold text-center text-white mb-6 bg-black p-2">Add New Product</h2>
         <form onSubmit={handleAddProduct}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -159,6 +188,12 @@ const AddProduct = () => {
                 onChange={(e) => setImage(e.target.files[0])}
                 className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
+              />
+              <input
+                type="file"
+                accept=".glb"
+                onChange={(e) => setGlbFile(e.target.files[0])} // GLB file input
+                className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="number"
