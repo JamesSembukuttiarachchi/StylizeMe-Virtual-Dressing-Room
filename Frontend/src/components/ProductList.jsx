@@ -98,52 +98,55 @@ const ProductList = () => {
   return (
     <div className="p-6">
       {/* Search and Filter Section */}
-      <div className="mb-6 flex flex-col md:flex-row items-center md:justify-between">
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="p-2 border rounded-lg shadow-sm w-full md:w-1/3 mb-4 md:mb-0"
-        />
-        <div className="flex space-x-4">
-          {/* Category Filter */}
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)} // Correctly set selectedCategory
-            className="p-2 border rounded-lg shadow-sm"
-          >
-            <option value="">All Categories</option>
-            <option value="Male">Men</option>
-            <option value="Female">Women</option>
-          </select>
+<div className="mb-8 p-6 bg-gray-100 rounded-lg shadow-lg">
+  <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+    <input
+      type="text"
+      placeholder="Search products..."
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      className="p-3 border border-gray-300 rounded-lg shadow-sm w-full md:w-1/3 focus:ring focus:ring-blue-200"
+    />
+    <div className="flex space-x-4">
+      {/* Category Filter */}
+      <select
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
+        className="p-3 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
+      >
+        <option value="">All Categories</option>
+        <option value="Male">Men</option>
+        <option value="Female">Women</option>
+      </select>
 
-          {/* Clothing Type Filter */}
-          <select
-            value={selectedClothType}
-            onChange={(e) => setSelectedClothType(e.target.value)}
-            className="p-2 border rounded-lg shadow-sm"
-          >
-            <option value="">All Clothing Types</option>
-            <option value="T-shirt">T-shirt</option>
-            <option value="Frock">Frock</option>
-            <option value="Skirt">Skirt</option>
-          </select>
+      {/* Clothing Type Filter */}
+      <select
+        value={selectedClothType}
+        onChange={(e) => setSelectedClothType(e.target.value)}
+        className="p-3 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
+      >
+        <option value="">All Clothing Types</option>
+        <option value="T-shirt">T-shirt</option>
+        <option value="Frock">Frock</option>
+        <option value="Skirt">Skirt</option>
+      </select>
 
-          {/* Brand Filter */}
-          <select
-            value={selectedBrand}
-            onChange={(e) => setSelectedBrand(e.target.value)}
-            className="p-2 border rounded-lg shadow-sm"
-          >
-            <option value="">All Brands</option>
-            <option value="OVS">OVS</option>
-            <option value="H&M">H&M</option>
-            <option value="Adidas">Adidas</option>
-            <option value="AVM">AVM</option>
-          </select>
-        </div>
-      </div>
+      {/* Brand Filter */}
+      <select
+        value={selectedBrand}
+        onChange={(e) => setSelectedBrand(e.target.value)}
+        className="p-3 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
+      >
+        <option value="">All Brands</option>
+        <option value="OVS">OVS</option>
+        <option value="H&M">H&M</option>
+        <option value="Adidas">Adidas</option>
+        <option value="AVM">AVM</option>
+      </select>
+    </div>
+  </div>
+</div>
+
 
       {/* Product Grid Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6">

@@ -31,7 +31,7 @@ const Card = ({product}) => {
                   />
                 </figure>
               </Link>
-              <div className="card-body">
+              <div className="card-body bg-slate-50">
                 <Link to={`/product/${product.id}`}>
                   <h2 className="card-title">{product.name}</h2>
                 </Link>
