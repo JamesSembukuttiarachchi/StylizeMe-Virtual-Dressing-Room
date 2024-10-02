@@ -145,7 +145,7 @@ const ManageProducts = () => {
               <td className="py-3 px-4 border-b text-gray-700 w-1/6">{product.brand}</td>
               <td className="py-3 px-4 border-b text-gray-700 w-1/6">{product.category}</td>
               <td className="py-3 px-4 border-b text-gray-700 w-1/6">{product.clothType}</td>
-              <td className="py-3 px-4 border-b text-gray-700 w-1/6">${product.price}</td>
+              <td className="py-3 px-4 border-b text-gray-700 w-1/6">Rs.{product.price}</td>
               <td className="py-3 px-4 border-b text-gray-700 w-1/6">{product.quantity}</td>
               <td className="py-3 px-4 border-b text-gray-700 w-1/6">
                 <div className="flex space-x-2">

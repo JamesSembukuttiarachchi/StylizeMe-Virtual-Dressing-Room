@@ -45,7 +45,7 @@ const ProductDetails = () => {
             {/* Gray skate shoe. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. */}
           </p>
           <div className="text-2xl font-bold text-gray-900 mb-4">
-            {product.price}
+            Rs.{product.price}
           </div>
 
           <div className="flex flex-col space-y-4">
