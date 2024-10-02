@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import Card from "./Card";
 
-const ProductList = ({ selectedCategory }) => {
+const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(""); // Local state for category
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(12); // Number of products per page
 
+  // Fetch products from Firestore
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "products"));
-        const productsList = querySnapshot.docs.map(doc => ({
+        const productsList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
         setProducts(productsList);
-        setFilteredProducts(productsList);
+        setFilteredProducts(productsList); // Initially show all products
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -28,31 +31,40 @@ const ProductList = ({ selectedCategory }) => {
     fetchProducts();
   }, []);
 
+  // Filter products by search query, category, and brand
   useEffect(() => {
     const applyFilters = () => {
       let filtered = products;
-
+  
+      // Filter by search query
       if (searchQuery) {
-        filtered = filtered.filter(product =>
+        filtered = filtered.filter((product) =>
           product.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
-
+  
+      // Filter by selected category (with case handling)
       if (selectedCategory) {
-        filtered = filtered.filter(product => product.category === selectedCategory);
+        filtered = filtered.filter(
+          (product) => product.category.toLowerCase() === selectedCategory.toLowerCase()
+        );
       }
-
+  
+      // Filter by selected brand
       if (selectedBrand) {
-        filtered = filtered.filter(product => product.brand === selectedBrand);
+        filtered = filtered.filter(
+          (product) => product.brand.toLowerCase() === selectedBrand.toLowerCase()
+        );
       }
-
+  
       setFilteredProducts(filtered);
     };
-
+  
     applyFilters();
   }, [searchQuery, selectedCategory, selectedBrand, products]);
+  
 
-  // Pagination calculations
+  // Pagination logic
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -65,7 +77,8 @@ const ProductList = ({ selectedCategory }) => {
   };
 
   return (
-    <div className="p-6 max-w-screen-lg mx-auto">
+    <div className="p-6">
+      {/* Search and Filter Section */}
       <div className="mb-6 flex flex-col md:flex-row items-center md:justify-between">
         <input
           type="text"
@@ -75,15 +88,18 @@ const ProductList = ({ selectedCategory }) => {
           className="p-2 border rounded-lg shadow-sm w-full md:w-1/3 mb-4 md:mb-0"
         />
         <div className="flex space-x-4">
-          {/* <select
+          {/* Category Filter */}
+          <select
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={(e) => setSelectedCategory(e.target.value)} // Correctly set selectedCategory
             className="p-2 border rounded-lg shadow-sm"
           >
             <option value="">All Categories</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select> */}
+            <option value="Male">Men</option>
+            <option value="Female">Women</option>
+          </select>
+
+          {/* Brand Filter */}
           <select
             value={selectedBrand}
             onChange={(e) => setSelectedBrand(e.target.value)}
@@ -98,30 +114,14 @@ const ProductList = ({ selectedCategory }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {currentProducts.map(product => (
-          <div key={product.id} className="p-4 border rounded-lg shadow-lg bg-white transition-transform transform hover:scale-105">
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="w-full h-48 object-cover mb-4 rounded-md border border-gray-200"
-            />
-            <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-            <p className="text-gray-600 mb-1"><span className="font-medium">{product.brand}</span></p>
-            <p className="text-gray-600 mb-1"><span className="font-medium">${product.price}</span></p>
-            <div className="flex flex-wrap gap-2">
-              {product.colors.map((color, index) => (
-                <div
-                  key={index}
-                  style={{ backgroundColor: color }}
-                  className="w-6 h-6 rounded-full border border-gray-300"
-                />
-              ))}
-            </div>
-          </div>
+      {/* Product Grid Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+        {currentProducts.map((product) => (
+          <Card key={product.id} product={product} />
         ))}
       </div>
 
+      {/* Pagination */}
       <div className="mt-6 flex justify-center">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
@@ -134,7 +134,9 @@ const ProductList = ({ selectedCategory }) => {
           <button
             key={index + 1}
             onClick={() => handlePageChange(index + 1)}
-            className={`px-4 py-2 ${currentPage === index + 1 ? "bg-blue-600 text-white" : "bg-gray-200"} font-semibold rounded-lg mx-1 transition-colors`}
+            className={`px-4 py-2 ${
+              currentPage === index + 1 ? "bg-blue-600 text-white" : "bg-gray-200"
+            } font-semibold rounded-lg mx-1 transition-colors`}
           >
             {index + 1}
           </button>

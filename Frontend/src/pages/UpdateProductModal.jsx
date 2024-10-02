@@ -12,6 +12,7 @@ const UpdateProductModal = ({ product, onClose, onUpdate }) => {
   const [price, setPrice] = useState(product?.price || "");
   const [quantity, setQuantity] = useState(product?.quantity || "");
   const [colors, setColors] = useState(product?.colors || ["#000000"]);
+  const [description, setDescription] = useState(product?.description || ""); // New description field
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(product?.imageUrl || "");
 
@@ -39,14 +40,15 @@ const UpdateProductModal = ({ product, onClose, onUpdate }) => {
         price: parseFloat(price),
         quantity: parseInt(quantity),
         colors,
-        imageUrl: newImageUrl
+        description, // Include description
+        imageUrl: newImageUrl,
       });
 
       Swal.fire({
         title: 'Success!',
         text: 'Product updated successfully.',
         icon: 'success',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'OK',
       }).then(() => {
         onUpdate();
         onClose();
@@ -57,7 +59,7 @@ const UpdateProductModal = ({ product, onClose, onUpdate }) => {
         title: 'Error!',
         text: 'Failed to update product. Please try again.',
         icon: 'error',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'OK',
       });
     }
   };
@@ -143,6 +145,14 @@ const UpdateProductModal = ({ product, onClose, onUpdate }) => {
                 className="w-full px-4 py-2 border rounded-lg"
                 required
               />
+              <textarea
+                placeholder="Product Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+                rows="4"
+                required
+              />
               <div className="mb-4">
                 <label className="block text-gray-700 font-semibold mb-2">Available Colors:</label>
                 {colors.map((color, index) => (
@@ -190,7 +200,7 @@ const UpdateProductModal = ({ product, onClose, onUpdate }) => {
             <div className="flex justify-end space-x-2 mt-4">
               <button
                 type="submit"
-                className="px-4 py-2 text-white font-semibold rounded-lg bg-green-500 hover:bg-green-600"
+                className="px-4 py-2 text-white font-semibold rounded-lg bg-blue-900 hover:bg-blue-950"
               >
                 Update Product
               </button>

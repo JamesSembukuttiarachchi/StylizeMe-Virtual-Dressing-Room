@@ -5,8 +5,18 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'], // Set Roboto as the default sans font
+        customFont: ['"Open Sans"', 'sans-serif'], // Another custom font
+  
+    },
   },
-  plugins: [],
-}
+ 
+},
 
+plugins: [
+  require('daisyui'),
+],
+
+}

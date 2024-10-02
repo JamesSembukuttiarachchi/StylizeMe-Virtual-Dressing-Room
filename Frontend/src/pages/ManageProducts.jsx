@@ -3,6 +3,9 @@ import { db } from "../firebaseConfig";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import UpdateProductModal from "./UpdateProductModal";
+import { generateProductsPDF } from "../components/generateProductsPDF";
+import { Link } from "react-router-dom";
+
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
@@ -64,9 +67,33 @@ const ManageProducts = () => {
     });
   };
 
+  const handleGeneratePDF = async () => {
+    await generateProductsPDF(products);
+    console.log("PDF generated successfully");
+  };
+
+
+
   return (
-    <div className="max-w-full mx-auto p-6 bg-blue-100 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-center mb-6">Manage Products</h2>
+    <div className="max-w-full mx-auto p-6 rounded-lg shadow-lg" style={{ backgroundImage: "url('/manageProducts-bg.jpg')" }}>
+      <h2 className="text-3xl font-extrabold text-center text-white mb-6 bg-black p-2">MANAGE PRODUCTS</h2>
+
+      {/* PDF Generator Button */}
+      <div className="flex justify-end mb-4 gap-4 ">
+      <Link to="/add-product">
+      <button className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">
+        Add Product
+      </button>
+    </Link>
+
+        <button
+          onClick={() => handleGeneratePDF() } // Pass products to the function
+          className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
+        >
+          Generate PDF Report
+        </button>
+      </div>
+
       <table className="min-w-full bg-white border rounded-lg">
         <thead>
           <tr>

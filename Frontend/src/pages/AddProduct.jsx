@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { db, storage } from "../firebaseConfig.js"; 
+import { db, storage } from "../firebaseConfig.js";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import Swal from "sweetalert2"; // Import SweetAlert2
+import Swal from "sweetalert2";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -13,6 +13,7 @@ const AddProduct = () => {
   const [image, setImage] = useState(null);
   const [quantity, setQuantity] = useState("");
   const [colors, setColors] = useState(["#000000"]);
+  const [description, setDescription] = useState("");
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
@@ -23,9 +24,7 @@ const AddProduct = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot) => {
-          // Optional: Handle progress
-        },
+        (snapshot) => {},
         (error) => {
           Swal.fire({
             icon: "error",
@@ -46,6 +45,7 @@ const AddProduct = () => {
             quantity: parseInt(quantity),
             colors,
             imageUrl,
+            description,
           });
 
           Swal.fire({
@@ -54,7 +54,6 @@ const AddProduct = () => {
             text: "The product has been added successfully.",
           });
 
-          // Reset the form
           setName("");
           setBrand("");
           setCategory("");
@@ -63,6 +62,7 @@ const AddProduct = () => {
           setImage(null);
           setQuantity("");
           setColors(["#000000"]);
+          setDescription("");
         }
       );
     } catch (error) {
@@ -91,9 +91,12 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-gray-200 to-gray-400 p-6">
-      <div className="bg-white p-8 rounded-lg shadow-xl max-w-4xl w-full">
-        <h2 className="text-3xl font-bold text-center mb-6">Add New Product</h2>
+    <div
+      className="flex justify-center items-center min-h-screen p-6 bg-cover bg-center"
+      style={{ backgroundImage: "url('/addProduct-bg.jpg')" }} // Using the image from the public folder
+    >
+      <div className="bg-gray-300 p-8 rounded-lg shadow-xl max-w-4xl w-full bg-opacity-100">
+        <h2 className="text-3xl font-extrabold text-center text-white mb-6 bg-black p-2">Add New Product</h2>
         <form onSubmit={handleAddProduct}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left Column */}
@@ -120,7 +123,9 @@ const AddProduct = () => {
                 className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               >
-                <option value="" disabled>Select Category</option>
+                <option value="" disabled>
+                  Select Category
+                </option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -130,14 +135,15 @@ const AddProduct = () => {
                 className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               >
-                <option value="" disabled>Select Cloth Type</option>
+                <option value="" disabled>
+                  Select Cloth Type
+                </option>
                 <option value="T-shirt">T-shirt</option>
                 <option value="Frock">Frock</option>
                 <option value="Skirt">Skirt</option>
-                {/* Add more types as needed */}
               </select>
             </div>
-            
+
             {/* Right Column */}
             <div>
               <input
@@ -163,7 +169,9 @@ const AddProduct = () => {
                 required
               />
               <div className="mb-4">
-                <label className="block text-gray-700 font-semibold mb-2">Available Colors:</label>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Available Colors:
+                </label>
                 {colors.map((color, index) => (
                   <div key={index} className="flex items-center mb-2">
                     <input
@@ -192,12 +200,26 @@ const AddProduct = () => {
               </div>
             </div>
           </div>
-          <button
-            type="submit"
-            className="w-full py-2 mt-4 text-white font-semibold rounded-lg bg-blue-500 hover:bg-blue-600 transition-colors"
-          >
-            Add Product
-          </button>
+
+          {/* Description Field */}
+          <textarea
+            placeholder="Product Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-800"
+            rows="4"
+            required
+          ></textarea>
+
+          {/* Add this wrapping div to center the button */}
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="py-2 px-6 text-white font-semibold rounded-lg bg-blue-900 hover:bg-blue-950 transition-colors"
+            >
+              Add Product
+            </button>
+          </div>
         </form>
       </div>
     </div>
