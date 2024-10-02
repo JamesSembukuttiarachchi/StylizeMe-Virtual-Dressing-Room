@@ -11,8 +11,16 @@ import SaveSizes from "./components/saveSizes.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import UsageReport from "./components/UsageReport.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
+import AddProduct from "./pages/AddProduct"; // Adjust the path as necessary
+import ManageProducts from "./pages/ManageProducts"; // Adjust the path as necessary
+import ProductDetails from "./components/ProductDetails";
+import ProductList from "./components/ProductList";
 
 const App = () => {
+
+
+
+
   return (
     <div>
       <BrowserRouter>
@@ -28,6 +36,10 @@ const App = () => {
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/usagereport" element={<UsageReport />} />
           <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/manage-products" element={<ManageProducts />} />
+          <Route path="/menu" element={<ProductList />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
         </Routes>
       </BrowserRouter>
     </div>
