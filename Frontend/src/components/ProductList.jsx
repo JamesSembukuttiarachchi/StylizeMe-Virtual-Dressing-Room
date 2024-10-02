@@ -9,6 +9,7 @@ const ProductList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(""); // Local state for category
+  const [selectedClothType, setSelectedClothType] = useState(""); // New state for clothing type
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(12); // Number of products per page
 
@@ -35,39 +36,57 @@ const ProductList = () => {
   useEffect(() => {
     const applyFilters = () => {
       let filtered = products;
-  
+
       // Filter by search query
       if (searchQuery) {
         filtered = filtered.filter((product) =>
           product.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
-  
+
       // Filter by selected category (with case handling)
       if (selectedCategory) {
         filtered = filtered.filter(
-          (product) => product.category.toLowerCase() === selectedCategory.toLowerCase()
+          (product) =>
+            product.category.toLowerCase() === selectedCategory.toLowerCase()
         );
       }
-  
+
       // Filter by selected brand
       if (selectedBrand) {
         filtered = filtered.filter(
-          (product) => product.brand.toLowerCase() === selectedBrand.toLowerCase()
+          (product) =>
+            product.brand.toLowerCase() === selectedBrand.toLowerCase()
         );
       }
-  
+
+      // Filter by selected clothing type
+      if (selectedClothType) {
+        filtered = filtered.filter(
+          (product) =>
+            product.clothType.toLowerCase() === selectedClothType.toLowerCase()
+        );
+      }
+
       setFilteredProducts(filtered);
     };
-  
+
     applyFilters();
-  }, [searchQuery, selectedCategory, selectedBrand, products]);
-  
+  }, [
+    searchQuery,
+    selectedCategory,
+    selectedBrand,
+    selectedClothType,
+    products,
+  ]);
 
   // Pagination logic
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   const handlePageChange = (page) => {
@@ -97,6 +116,18 @@ const ProductList = () => {
             <option value="">All Categories</option>
             <option value="Male">Men</option>
             <option value="Female">Women</option>
+          </select>
+
+          {/* Clothing Type Filter */}
+          <select
+            value={selectedClothType}
+            onChange={(e) => setSelectedClothType(e.target.value)}
+            className="p-2 border rounded-lg shadow-sm"
+          >
+            <option value="">All Clothing Types</option>
+            <option value="T-shirt">T-shirt</option>
+            <option value="Frock">Frock</option>
+            <option value="Skirt">Skirt</option>
           </select>
 
           {/* Brand Filter */}
@@ -135,7 +166,9 @@ const ProductList = () => {
             key={index + 1}
             onClick={() => handlePageChange(index + 1)}
             className={`px-4 py-2 ${
-              currentPage === index + 1 ? "bg-blue-600 text-white" : "bg-gray-200"
+              currentPage === index + 1
+                ? "bg-blue-600 text-white"
+                : "bg-gray-200"
             } font-semibold rounded-lg mx-1 transition-colors`}
           >
             {index + 1}
