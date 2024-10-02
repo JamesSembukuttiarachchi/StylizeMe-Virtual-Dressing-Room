@@ -182,7 +182,7 @@ const UsageReport = () => {
 
   return (
     <div
-      className="container mx-auto p-8"
+      className="mx-auto p-8"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",

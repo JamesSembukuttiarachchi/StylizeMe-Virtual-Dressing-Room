@@ -17,10 +17,6 @@ import ProductDetails from "./components/ProductDetails";
 import ProductList from "./components/ProductList";
 
 const App = () => {
-
-
-
-
   return (
     <div>
       <BrowserRouter>
@@ -31,7 +27,14 @@ const App = () => {
           <Route path="/admin" element={<AdminRoute></AdminRoute>} />
           <Route path="/addsizes" element={<AddSizes />} />
           <Route path="/dummy" element={<dummy />} />
-          <Route path="/brands" element={<Brands />} />
+          <Route
+            path="/brands"
+            element={
+              <AdminRoute>
+                <Brands />
+              </AdminRoute>
+            }
+          />
           <Route path="/savesizes" element={<SaveSizes />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/usagereport" element={<UsageReport />} />
