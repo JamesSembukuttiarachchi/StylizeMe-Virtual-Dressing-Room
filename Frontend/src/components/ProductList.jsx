@@ -105,7 +105,7 @@ const ProductList = () => {
         </div>
 
         {/* Search and Filter Section */}
-        <div className="mb-4 p-2 bg-gray-300 rounded-lg shadow-lg">
+        <div className="mb-4 p-2 mx-4 rounded-lg">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <input
               type="text"
