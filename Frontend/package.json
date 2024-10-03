@@ -10,16 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    
     "chart.js": "^4.4.4",
-    "@mediapipe/camera_utils": "^0.3.1675466862",
-    "@mediapipe/face_mesh": "^0.4.1633559619",
-    "@mediapipe/pose": "^0.5.1675469404",
-    "@react-three/drei": "^9.111.5",
-    "@react-three/fiber": "^8.17.6",
-    "@tensorflow-models/posenet": "^2.2.2",
-    "@tensorflow/tfjs": "^4.21.0",
-    "axios": "^1.7.7",
     "env": "^0.0.2",
     "firebase": "^10.13.1",
     "html2canvas": "^1.4.1",

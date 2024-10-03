@@ -22,6 +22,12 @@ import ShoppingHome from "./pages/ShoppingHome";
 import FaceMeshAR from "./components/FaceMeshAR";
 import ARHoodie from "./components/ARHoodie";
 import ARCap from "./components/ARCap";
+import FeedbackForm from './pages/Feedback';
+import Feedbackview from './pages/Feedbackview';
+import Feedbackupdate from './pages/Feedbackupdate';
+import Feedbackdelete from './pages/Feedbackdelete';
+import FeedbackHome from './pages/FeedbackHome';
+import UserReport from './pages/UserReport';
 
 const App = () => {
   return (
@@ -68,6 +74,13 @@ const App = () => {
           <Route path="/glass" element={<FaceMeshAR />} />
           <Route path="/hood" element={<ARHoodie />} />
           <Route path="/cap" element={<ARCap />} />
+
+          <Route path="/" element={<FeedbackHome />} />
+          <Route path="/Feedback" element={<FeedbackForm/>}/>
+          <Route path="/Feedbackview/:feedbackId" element={<Feedbackview/>}/>
+          <Route path="/Feedbackupdate/:feedbackId" element={<Feedbackupdate />}/>
+          <Route path="/Feedbackdelete/:feedbackId" element={<Feedbackdelete />} />
+          <Route path="/feedbackview/:id" element={<UserReport />} />
         </Routes>
       </BrowserRouter>
     </div>
