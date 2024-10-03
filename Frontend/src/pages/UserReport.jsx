@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from "../firebaseConfig";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
-import jsPDF from 'jspdf'; // Importing jsPDF
-import 'jspdf-autotable'; // Importing jsPDF AutoTable
-import { Pie } from 'react-chartjs-2'; // Importing Pie for the chart
-import { Chart, registerables } from 'chart.js'; // Importing Chart.js components
-import html2canvas from 'html2canvas'; // Importing html2canvas for capturing chart
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { Pie } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+import html2canvas from 'html2canvas';
 
 Chart.register(...registerables);
 
@@ -14,7 +14,13 @@ const UserReport = () => {
   const { feedbackId } = useParams();
   const [feedbackData, setFeedbackData] = useState(null);
   const [chartData, setChartData] = useState({});
-  const chartRef = useRef(null); // Ref for the chart container
+  const [experienceCount, setExperienceCount] = useState({
+    excellent: 0,
+    average: 0,
+    good: 0,
+    poor: 0,
+  });
+  const chartRef = useRef(null);
 
   useEffect(() => {
     const fetchFeedbackById = async () => {
@@ -50,6 +56,8 @@ const UserReport = () => {
           }
         });
 
+        setExperienceCount(experienceCount);
+
         setChartData({
           labels: Object.keys(experienceCount),
           datasets: [
@@ -82,11 +90,9 @@ const UserReport = () => {
     fetchAllFeedback();
   }, [feedbackId]);
 
-  // Function to generate PDF report including pie chart
   const generatePDF = () => {
-    if (!feedbackData) return;
+    if (!feedbackData || !chartData.labels) return;
 
-    // First, capture the pie chart as an image
     html2canvas(chartRef.current).then(canvas => {
       const chartImage = canvas.toDataURL("image/png");
       const doc = new jsPDF();
@@ -106,6 +112,18 @@ const UserReport = () => {
           ['Ease of Use', feedbackData.easeOfUse || 'N/A'],
           ['Pattern Selection', feedbackData.patternSelection || 'N/A'],
           ['Comments', feedbackData.comments || 'N/A'],
+        ],
+      });
+
+      // Summary Table for Experience Count
+      doc.autoTable({
+        startY: doc.autoTable.previous.finalY + 10,
+        head: [['Experience Type', 'Count']],
+        body: [
+          ['Excellent', experienceCount.excellent],
+          ['Good', experienceCount.good],
+          ['Average', experienceCount.average],
+          ['Poor', experienceCount.poor],
         ],
       });
 
@@ -181,18 +199,29 @@ const UserReport = () => {
                 <p className="text-lg font-semibold text-gray-600"><strong>Comments:</strong> {feedbackData.comments}</p>
               </div>
 
+              {/* Summary */}
+              <div className="p-4 border border-blue-200 rounded-md shadow-sm bg-blue-50">
+                <h4 className="text-lg font-semibold text-gray-600">Feedback Summary</h4>
+                <ul>
+                  <li><strong>Excellent:</strong> {experienceCount.excellent}</li>
+                  <li><strong>Good:</strong> {experienceCount.good}</li>
+                  <li><strong>Average:</strong> {experienceCount.average}</li>
+                  <li><strong>Poor:</strong> {experienceCount.poor}</li>
+                </ul>
+              </div>
+
               <div className="flex justify-end mt-4 space-x-4">
                 <button
                   onClick={generatePDF}
-                  className="px-4 py-2 font-semibold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none"
                 >
-                  Generate report with Chart
+                  Generate PDF
                 </button>
               </div>
             </div>
           </div>
         ) : (
-          <p className="text-center text-gray-500">Loading feedback data...</p>
+          <p>Loading feedback data...</p>
         )}
       </div>
     </div>
