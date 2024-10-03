@@ -9,6 +9,8 @@ const SaveSizes = ({ user }) => {
   const [neckSize, setNeckSize] = useState("");
   const [shoulderWidth, setShoulderWidth] = useState("");
   const [length, setLength] = useState("");
+  const [height, setHeight] = useState("");
+  const [gender, setGender] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -22,6 +24,8 @@ const SaveSizes = ({ user }) => {
           neckSize,
           shoulderWidth,
           length,
+          height,
+          gender
         });
       }
       Swal.fire({
@@ -50,6 +54,43 @@ const SaveSizes = ({ user }) => {
         <h2 className="text-2xl font-bold mb-4 text-center">
           Save Your Measurements
         </h2>
+
+        <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="gender"
+              >
+                Gender
+              </label>
+              <select
+                id="gender"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="height"
+              >
+                Height (in cm)
+              </label>
+              <input
+                id="height"
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
 
         <div className="mb-4">
           <label

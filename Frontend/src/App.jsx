@@ -22,12 +22,12 @@ import ShoppingHome from "./pages/ShoppingHome";
 import FaceMeshAR from "./components/FaceMeshAR";
 import ARHoodie from "./components/ARHoodie";
 import ARCap from "./components/ARCap";
-import FeedbackForm from './pages/Feedback';
-import Feedbackview from './pages/Feedbackview';
-import Feedbackupdate from './pages/Feedbackupdate';
-import Feedbackdelete from './pages/Feedbackdelete';
-import FeedbackHome from './pages/FeedbackHome';
-import UserReport from './pages/UserReport';
+import FeedbackForm from "./pages/Feedback";
+import Feedbackview from "./pages/Feedbackview";
+import Feedbackupdate from "./pages/Feedbackupdate";
+import Feedbackdelete from "./pages/Feedbackdelete";
+import FeedbackHome from "./pages/FeedbackHome";
+import UserReport from "./pages/UserReport";
 
 const App = () => {
   return (
@@ -36,11 +36,36 @@ const App = () => {
         <Routes>
           {/*James*/}
           <Route path="/signup" element={<Signup />} />
-          <Route path="/detectskintone" element={<SkinToneDetection />} />
           <Route path="/login" element={<Login />} />
+
+          <Route path="/detectskintone" element={<SkinToneDetection />} />
+          <Route path="/home" element={<ShoppingHome />} />
+          <Route path="/contact" element={<FeedbackHome />} />
+          <Route path="/Feedback" element={<FeedbackForm />} />
+          <Route path="/Feedbackview/:feedbackId" element={<Feedbackview />} />
+          <Route
+            path="/Feedbackupdate/:feedbackId"
+            element={<Feedbackupdate />}
+          />
+          <Route
+            path="/Feedbackdelete/:feedbackId"
+            element={<Feedbackdelete />}
+          />
+          <Route path="/feedbackview/:id" element={<UserReport />} />
+          <Route path="/savesizes" element={<SaveSizes />} />
+          <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/menu" element={<ProductList />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+
           <Route path="/admin" element={<AdminRoute></AdminRoute>} />
-          <Route path="/addsizes" element={<AddSizes />} />
-          <Route path="/dummy" element={<dummy />} />
+          <Route
+            path="/addsizes"
+            element={
+              <AdminRoute>
+                <AddSizes />
+              </AdminRoute>
+            }
+          />
           <Route
             path="/brands"
             element={
@@ -49,9 +74,15 @@ const App = () => {
               </AdminRoute>
             }
           />
-          <Route path="/savesizes" element={<SaveSizes />} />
-          <Route path="/userprofile" element={<UserProfile />} />
-          <Route path="/usagereport" element={<UsageReport />} />
+
+          <Route
+            path="/usagereport"
+            element={
+              <AdminRoute>
+                <UsageReport />
+              </AdminRoute>
+            }
+          />
           <Route
             path="/dashboard"
             element={
@@ -62,25 +93,32 @@ const App = () => {
           />
 
           {/*Amaya*/}
-          <Route path="/add-product" element={<AddProduct />} />
-          <Route path="/manage-products" element={<ManageProducts />} />
-          <Route path="/menu" element={<ProductList />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route
+            path="/add-product"
+            element={
+              <AdminRoute>
+                <AddProduct />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/manage-products"
+            element={
+              <AdminRoute>
+                <ManageProducts />
+              </AdminRoute>
+            }
+          />
 
           {/*Rakindu*/}
-          <Route path="/" element={<ProductCard />} />
-          <Route path="/view" element={<ViewTshirt />} />
-          <Route path="/home" element={<ShoppingHome />} />
+
+          {/* <Route path="/view" element={<ViewTshirt />} />
+
           <Route path="/glass" element={<FaceMeshAR />} />
           <Route path="/hood" element={<ARHoodie />} />
-          <Route path="/cap" element={<ARCap />} />
+          <Route path="/cap" element={<ARCap />} /> */}
 
-          <Route path="/" element={<FeedbackHome />} />
-          <Route path="/Feedback" element={<FeedbackForm/>}/>
-          <Route path="/Feedbackview/:feedbackId" element={<Feedbackview/>}/>
-          <Route path="/Feedbackupdate/:feedbackId" element={<Feedbackupdate />}/>
-          <Route path="/Feedbackdelete/:feedbackId" element={<Feedbackdelete />} />
-          <Route path="/feedbackview/:id" element={<UserReport />} />
+          {/*Hiruni*/}
         </Routes>
       </BrowserRouter>
     </div>

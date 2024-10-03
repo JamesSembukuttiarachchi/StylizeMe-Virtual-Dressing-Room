@@ -1,6 +1,7 @@
 import React from "react";
 import popular1 from "../assets/popular1.jpeg";
 import popular2 from "../assets/popular2.jpeg";
+import Testimonials from "../components/Testimonials";
 
 const supplementCategoryItems = [
   { id: 1, image: "src/assets/sup_fat.png" },
@@ -13,7 +14,7 @@ const supplementCategoryItems = [
 
 const PopularCategories = () => {
   return (
-    <div className="section-container bg-gray-100">
+    <div className="section-container bg-gray-100 py-5">
       <div className="mx-auto max-w-screen-xl px-2 py-8 sm:px-6 sm:py-12 lg:px-8">
         <header className="text-center">
           <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
@@ -83,32 +84,7 @@ const PopularCategories = () => {
         </ul>
       </div>
 
-      <div>
-        <section className="bg-white dark:bg-gray-900">
-          <div className="container px-6 py-10 mx-auto">
-            <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
-              SHOP THE BEST SUPPLEMENTS
-            </h1>
-
-            <p className="mt-4 text-center text-gray-500 dark:text-gray-300">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum
-              quam voluptatibus
-            </p>
-
-            <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2 xl:grid-cols-3">
-              {supplementCategoryItems.map((item, i) => (
-                <div key={i}>
-                  <img
-                    className="object-cover w-full rounded-lg h-96 "
-                    src={item.image}
-                    alt=""
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </div>
+      <Testimonials/>
     </div>
   );
 };

@@ -10,8 +10,6 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [gender, setGender] = useState("");
-  const [height, setHeight] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -29,8 +27,8 @@ const Signup = () => {
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         name: name,
-        gender: gender,
-        height: height,
+        gender: null,
+        height: null,
         isAdmin: false, // By default, the user is not an admin
         skinTone: null, // Placeholder for skin tone to be added later
         neckSize: null,
@@ -64,7 +62,7 @@ const Signup = () => {
         className="w-2/5 bg-cover bg-center"
         style={{ backgroundImage: `url(${signupImage})` }}
       ></div>
-      <div className="w-3/5 flex items-center justify-center bg-gray-100">
+      <div className="w-3/5 flex items-center justify-center bg-[#1b2e60]">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
           <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-4">
             Sign Up
@@ -103,7 +101,7 @@ const Signup = () => {
                 required
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="gender"
@@ -138,7 +136,7 @@ const Signup = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
-            </div>
+            </div> */}
             <div className="mb-6">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
