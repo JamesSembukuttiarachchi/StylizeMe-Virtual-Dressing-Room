@@ -99,102 +99,100 @@ const ProductList = () => {
 
   return (
     <Layout>
-       <div className="pt-2">
-      {/* Search and Filter Section */}
-      <div className="mb-4 p-2 bg-gray-300 rounded-lg shadow-lg">
-        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg shadow-sm w-full md:w-1/3 focus:ring focus:ring-blue-200"
-          />
-          <div className="flex space-x-4">
-            {/* Category Filter */}
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
-            >
-              <option value="">All Categories</option>
-              <option value="Male">Men</option>
-              <option value="Female">Women</option>
-            </select>
+      <div className="">
+        <div>
+          <Banner1 />
+        </div>
 
-            {/* Clothing Type Filter */}
-            <select
-              value={selectedClothType}
-              onChange={(e) => setSelectedClothType(e.target.value)}
-              className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
-            >
-              <option value="">All Clothing Types</option>
-              <option value="T-shirt">T-shirt</option>
-              <option value="Frock">Frock</option>
-              <option value="Skirt">Skirt</option>
-            </select>
+        {/* Search and Filter Section */}
+        <div className="mb-4 p-2 bg-gray-300 rounded-lg shadow-lg">
+          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="p-2 border border-gray-300 rounded-lg shadow-sm w-full md:w-1/3 focus:ring focus:ring-blue-200"
+            />
+            <div className="flex space-x-4">
+              {/* Category Filter */}
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
+              >
+                <option value="">All Categories</option>
+                <option value="Male">Men</option>
+                <option value="Female">Women</option>
+              </select>
 
-            {/* Brand Filter */}
-            <select
-              value={selectedBrand}
-              onChange={(e) => setSelectedBrand(e.target.value)}
-              className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
-            >
-              <option value="">All Brands</option>
-              <option value="OVS">OVS</option>
-              <option value="H&M">H&M</option>
-              <option value="Adidas">Adidas</option>
-              <option value="AVM">AVM</option>
-            </select>
+              {/* Clothing Type Filter */}
+              <select
+                value={selectedClothType}
+                onChange={(e) => setSelectedClothType(e.target.value)}
+                className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
+              >
+                <option value="">All Clothing Types</option>
+                <option value="T-shirt">T-shirt</option>
+                <option value="Frock">Frock</option>
+                <option value="Skirt">Skirt</option>
+              </select>
+
+              {/* Brand Filter */}
+              <select
+                value={selectedBrand}
+                onChange={(e) => setSelectedBrand(e.target.value)}
+                className="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
+              >
+                <option value="">All Brands</option>
+                <option value="OVS">OVS</option>
+                <option value="H&M">H&M</option>
+                <option value="Adidas">Adidas</option>
+                <option value="AVM">AVM</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div>
-      <Banner1 />
-      </div>
+        {/* Product Grid Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 justify-items-center">
+          {currentProducts.map((product) => (
+            <Card key={product.id} product={product} />
+          ))}
+        </div>
 
-      {/* Product Grid Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 justify-items-center">
-  {currentProducts.map((product) => (
-    <Card key={product.id} product={product} />
-  ))}
-</div>
-
-
-      {/* Pagination */}
-      <div className="mt-6 flex justify-center">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 disabled:opacity-50 transition-colors"
-        >
-          Previous
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
+        {/* Pagination */}
+        <div className="mt-6 flex justify-center">
           <button
-            key={index + 1}
-            onClick={() => handlePageChange(index + 1)}
-            className={`px-4 py-2 ${
-              currentPage === index + 1
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200"
-            } font-semibold rounded-lg mx-1 transition-colors`}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 disabled:opacity-50 transition-colors"
           >
-            {index + 1}
+            Previous
           </button>
-        ))}
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 disabled:opacity-50 transition-colors"
-        >
-          Next
-        </button>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-4 py-2 ${
+                currentPage === index + 1
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200"
+              } font-semibold rounded-lg mx-1 transition-colors`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 disabled:opacity-50 transition-colors"
+          >
+            Next
+          </button>
+        </div>
       </div>
-    </div>
     </Layout>
-
   );
 };
 

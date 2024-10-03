@@ -6,6 +6,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Bounds } from "@react-three/drei";
 import * as THREE from "three";
 import Layout from "./layout/Layout";
+import PoseDetection from "./PoseDetection";
+import FaceLandmarkAR from "./FaceMeshAR";
 
 // Debugging: Log model URL
 const TShirtModel = ({ modelUrl }) => {
@@ -37,6 +39,7 @@ const ProductDetails = () => {
   const { id } = useParams(); // Extract product ID from URL
   const [product, setProduct] = useState(null);
   const [show3DModel, setShow3DModel] = useState(false); // Control 3D model display
+  const [showARView, setShowARView] = useState(false); // State for AR View
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -57,6 +60,16 @@ const ProductDetails = () => {
 
     fetchProduct();
   }, [id]);
+
+  // Cleanup when AR View is closed to stop the camera
+  const handleCloseARView = () => {
+    setShowARView(false);
+    const stream = document.querySelector("video")?.srcObject;
+    if (stream) {
+      const tracks = stream.getTracks();
+      tracks.forEach((track) => track.stop()); // Stop the camera
+    }
+  };
 
   // Check if product exists before rendering
   if (!product) {
@@ -104,15 +117,17 @@ const ProductDetails = () => {
                 </a>
               </button>
 
-              <a
-                className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-                href="#"
-              >
-                <span className="absolute inset-0 border border-blue-900 group-active:border-red-500"></span>
-                <span className="block border border-red-600 bg-blue-900 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1 text-center">
-                  AR VIEW
-                </span>
-              </a>
+              <button onClick={() => setShowARView(true)}>
+                <a
+                  className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
+                  href="#"
+                >
+                  <span className="absolute inset-0 border border-blue-900 group-active:border-red-500"></span>
+                  <span className="block border border-red-600 bg-blue-900 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1 text-center">
+                    AR VIEW
+                  </span>
+                </a>
+              </button>
             </div>
           </div>
         </div>
@@ -157,6 +172,28 @@ const ProductDetails = () => {
                 </Canvas>
               ) : (
                 <p>No 3D model available</p> // Display message if no model URL is available
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Display the AR View modal if showARView is true */}
+        {showARView && (
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 ">
+            <div className="relative w-full max-w-5xl h-full bg-white rounded-lg shadow-lg overflow-hidden">
+              <button
+                onClick={handleCloseARView} // Close AR View and stop the camera
+                className="absolute top-2 right-2 text-white bg-red-600 hover:bg-red-700 rounded-full p-1 z-50"
+              >
+                ✕
+              </button>
+              {/* Conditionally render the AR component based on product type */}
+              {product.clothType === "T-shirt" ? (
+                <PoseDetection imageUrl={product.imageUrl} />
+              ) : product.clothType === "Shades" ? (
+                <FaceLandmarkAR imageUrl={product.imageUrl} />
+              ) : (
+                <p>AR view not available for this product type</p>
               )}
             </div>
           </div>

@@ -2,9 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 import { FaceMesh } from '@mediapipe/face_mesh';
 import * as cam from '@mediapipe/camera_utils';
-import glass from '../assets/sunglass.png';
+//import glass from '../assets/sunglass.png';
 
-const FaceLandmarkAR = () => {
+const FaceLandmarkAR = ({imageUrl}) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [camera, setCamera] = useState(null);
@@ -52,7 +52,7 @@ const FaceLandmarkAR = () => {
         const sunglassesY = leftEye.y * canvasElement.height - sunglassesHeight / 2;
 
         const img = new Image();
-        img.src = glass; // Ensure this path is correct
+        img.src = imageUrl; // Ensure this path is correct
         img.onload = () => {
           canvasCtx.drawImage(
             img,
