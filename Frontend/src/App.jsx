@@ -7,7 +7,7 @@ import Login from "./components/Login.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 import dummy from "./components/dummy.jsx";
 import Brands from "./components/Brands.jsx";
-import SaveSizes from "./components/saveSizes.jsx";
+import SaveSizes from "./components/SaveSizes.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import UsageReport from "./components/UsageReport.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";

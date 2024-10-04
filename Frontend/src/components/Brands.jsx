@@ -21,6 +21,7 @@ const Brands = () => {
     blouses: [],
   });
   const [editData, setEditData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetching all dress types from Firebase
   useEffect(() => {
@@ -78,6 +79,7 @@ const Brands = () => {
   // Handling edit
   const handleEdit = (item, type) => {
     setEditData({ ...item, type });
+    setIsModalOpen(true); // Open the modal on edit
   };
 
   // Update the data in Firebase
@@ -177,332 +179,339 @@ const Brands = () => {
 
   return (
     <Layout>
-        <div
-      className=" mx-auto p-8"
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-        backgroundAttachment: "fixed",
-        overflow: "hidden",
-      }}
-    >
-      <h1 className="text-3xl font-bold mb-8 text-center text-white">
-        Dress Sizes Overview
-      </h1>
-      <Tabs
-        selectedIndex={selectedTab}
-        onSelect={(index) => setSelectedTab(index)}
+      <div
+        className=" mx-auto p-8"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          minHeight: "100vh",
+          backgroundAttachment: "fixed",
+          overflow: "hidden",
+        }}
       >
-        <TabList className="flex justify-center mb-6">
-          <Tab
-            className={`font-semibold text-lg px-6 py-2 border-b-2 cursor-pointer transition duration-300 ${
-              selectedTab === 0
-                ? "text-black border-white"
-                : "text-white border-transparent hover:border-blue-500"
-            }`}
-          >
-            T-Shirts
-          </Tab>
-          <Tab
-            className={`font-semibold text-lg px-6 py-2 border-b-2 cursor-pointer transition duration-300 ${
-              selectedTab === 1
-                ? "text-black border-white"
-                : "text-white border-transparent hover:border-blue-500"
-            }`}
-          >
-            Shirts
-          </Tab>
-          <Tab
-            className={`font-semibold text-lg px-6 py-2 border-b-2 cursor-pointer transition duration-300 ${
-              selectedTab === 2
-                ? "text-black border-white"
-                : "text-white border-transparent hover:border-blue-500"
-            }`}
-          >
-            Blouses
-          </Tab>
-        </TabList>
-
-        {/* T-Shirt Tab */}
-        <TabPanel>
-          <h2 className="text-2xl font-semibold mb-4 text-white"></h2>
-          {dresses.tshirts.length > 0 ? (
-            renderTable(dresses.tshirts, "tshirt")
-          ) : (
-            <p className="text-center text-white">No T-Shirts found</p>
-          )}
-        </TabPanel>
-
-        {/* Shirt Tab */}
-        <TabPanel>
-          <h2 className="text-2xl font-semibold mb-4 text-white"></h2>
-          {dresses.shirts.length > 0 ? (
-            renderTable(dresses.shirts, "shirt")
-          ) : (
-            <p className="text-center text-white">No Shirts found</p>
-          )}
-        </TabPanel>
-
-        {/* Blouse Tab */}
-        <TabPanel>
-          <h2 className="text-2xl font-semibold mb-4 text-white"></h2>
-          {dresses.blouses.length > 0 ? (
-            renderTable(dresses.blouses, "blouse")
-          ) : (
-            <p className="text-center text-white">No Blouses found</p>
-          )}
-        </TabPanel>
-      </Tabs>
-
-      {editData && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4 text-white">
-            Edit Sizes of {editData.brandName} {editData.type}s
-          </h2>
-          <div className="space-y-4">
-            <div>
-              <label className="block mb-2 text-white">Small Size:</label>
-              <input
-                type="text"
-                value={editData.sizes.Small.neckSize}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      Small: {
-                        ...editData.sizes.Small,
-                        neckSize: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Neck Size"
-              />
-              <input
-                type="text"
-                value={editData.sizes.Small.shoulderWidth}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      Small: {
-                        ...editData.sizes.Small,
-                        shoulderWidth: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Shoulder Width"
-              />
-              <input
-                type="text"
-                value={editData.sizes.Small.length}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      Small: {
-                        ...editData.sizes.Small,
-                        length: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Length"
-              />
-            </div>
-            {/* Repeat for Medium, Large, Extra Large sizes */}
-            <div>
-              <label className="block mb-2 text-white">Medium Size:</label>
-              <input
-                type="text"
-                value={editData.sizes.Medium.neckSize}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      Medium: {
-                        ...editData.sizes.Medium,
-                        neckSize: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Neck Size"
-              />
-              <input
-                type="text"
-                value={editData.sizes.Medium.shoulderWidth}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      Medium: {
-                        ...editData.sizes.Medium,
-                        shoulderWidth: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Shoulder Width"
-              />
-              <input
-                type="text"
-                value={editData.sizes.Medium.length}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      Medium: {
-                        ...editData.sizes.Medium,
-                        length: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Length"
-              />
-            </div>
-            <div>
-              <label className="block mb-2 text-white">Large Size:</label>
-              <input
-                type="text"
-                value={editData.sizes.Large.neckSize}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      Large: {
-                        ...editData.sizes.Large,
-                        neckSize: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Neck Size"
-              />
-              <input
-                type="text"
-                value={editData.sizes.Large.shoulderWidth}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      Large: {
-                        ...editData.sizes.Large,
-                        shoulderWidth: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Shoulder Width"
-              />
-              <input
-                type="text"
-                value={editData.sizes.Large.length}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      Large: {
-                        ...editData.sizes.Large,
-                        length: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Length"
-              />
-            </div>
-            <div>
-              <label className="block mb-2 text-white">Extra Large Size:</label>
-              <input
-                type="text"
-                value={editData.sizes.ExtraLarge.neckSize}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      ExtraLarge: {
-                        ...editData.sizes.ExtraLarge,
-                        neckSize: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Neck Size"
-              />
-              <input
-                type="text"
-                value={editData.sizes.ExtraLarge.shoulderWidth}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      ExtraLarge: {
-                        ...editData.sizes.ExtraLarge,
-                        shoulderWidth: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Shoulder Width"
-              />
-              <input
-                type="text"
-                value={editData.sizes.ExtraLarge.length}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    sizes: {
-                      ...editData.sizes,
-                      ExtraLarge: {
-                        ...editData.sizes.ExtraLarge,
-                        length: e.target.value,
-                      },
-                    },
-                  })
-                }
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Length"
-              />
-            </div>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              onClick={handleUpdate}
+        <h1 className="text-3xl font-bold mb-8 text-center text-white">
+          Dress Sizes Overview
+        </h1>
+        <Tabs
+          selectedIndex={selectedTab}
+          onSelect={(index) => setSelectedTab(index)}
+        >
+          <TabList className="flex justify-center mb-6">
+            <Tab
+              className={`font-semibold text-lg px-6 py-2 border-b-2 cursor-pointer transition duration-300 ${
+                selectedTab === 0
+                  ? "text-black border-white"
+                  : "text-white border-transparent hover:border-blue-500"
+              }`}
             >
-              Update
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-    </Layout>
+              T-Shirts
+            </Tab>
+            <Tab
+              className={`font-semibold text-lg px-6 py-2 border-b-2 cursor-pointer transition duration-300 ${
+                selectedTab === 1
+                  ? "text-black border-white"
+                  : "text-white border-transparent hover:border-blue-500"
+              }`}
+            >
+              Shirts
+            </Tab>
+            <Tab
+              className={`font-semibold text-lg px-6 py-2 border-b-2 cursor-pointer transition duration-300 ${
+                selectedTab === 2
+                  ? "text-black border-white"
+                  : "text-white border-transparent hover:border-blue-500"
+              }`}
+            >
+              Blouses
+            </Tab>
+          </TabList>
 
+          {/* T-Shirt Tab */}
+          <TabPanel>
+            <h2 className="text-2xl font-semibold mb-4 text-white"></h2>
+            {dresses.tshirts.length > 0 ? (
+              renderTable(dresses.tshirts, "tshirt")
+            ) : (
+              <p className="text-center text-white">No T-Shirts found</p>
+            )}
+          </TabPanel>
+
+          {/* Shirt Tab */}
+          <TabPanel>
+            <h2 className="text-2xl font-semibold mb-4 text-white"></h2>
+            {dresses.shirts.length > 0 ? (
+              renderTable(dresses.shirts, "shirt")
+            ) : (
+              <p className="text-center text-white">No Shirts found</p>
+            )}
+          </TabPanel>
+
+          {/* Blouse Tab */}
+          <TabPanel>
+            <h2 className="text-2xl font-semibold mb-4 text-white"></h2>
+            {dresses.blouses.length > 0 ? (
+              renderTable(dresses.blouses, "blouse")
+            ) : (
+              <p className="text-center text-white">No Blouses found</p>
+            )}
+          </TabPanel>
+        </Tabs>
+
+        {editData && isModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded shadow-lg">
+              <h2 className="text-xl font-semibold mb-4">
+                Edit Sizes of {editData.brandName} {editData.type}s
+              </h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block mb-2 ">Small Size:</label>
+                  <input
+                    type="text"
+                    value={editData.sizes.Small.neckSize}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          Small: {
+                            ...editData.sizes.Small,
+                            neckSize: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Neck Size"
+                  />
+                  <input
+                    type="text"
+                    value={editData.sizes.Small.shoulderWidth}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          Small: {
+                            ...editData.sizes.Small,
+                            shoulderWidth: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Shoulder Width"
+                  />
+                  <input
+                    type="text"
+                    value={editData.sizes.Small.length}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          Small: {
+                            ...editData.sizes.Small,
+                            length: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Length"
+                  />
+                </div>
+                {/* Repeat for Medium, Large, Extra Large sizes */}
+                <div>
+                  <label className="block mb-2 ">Medium Size:</label>
+                  <input
+                    type="text"
+                    value={editData.sizes.Medium.neckSize}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          Medium: {
+                            ...editData.sizes.Medium,
+                            neckSize: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Neck Size"
+                  />
+                  <input
+                    type="text"
+                    value={editData.sizes.Medium.shoulderWidth}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          Medium: {
+                            ...editData.sizes.Medium,
+                            shoulderWidth: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Shoulder Width"
+                  />
+                  <input
+                    type="text"
+                    value={editData.sizes.Medium.length}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          Medium: {
+                            ...editData.sizes.Medium,
+                            length: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Length"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2">Large Size:</label>
+                  <input
+                    type="text"
+                    value={editData.sizes.Large.neckSize}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          Large: {
+                            ...editData.sizes.Large,
+                            neckSize: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Neck Size"
+                  />
+                  <input
+                    type="text"
+                    value={editData.sizes.Large.shoulderWidth}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          Large: {
+                            ...editData.sizes.Large,
+                            shoulderWidth: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Shoulder Width"
+                  />
+                  <input
+                    type="text"
+                    value={editData.sizes.Large.length}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          Large: {
+                            ...editData.sizes.Large,
+                            length: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Length"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2">Extra Large Size:</label>
+                  <input
+                    type="text"
+                    value={editData.sizes.ExtraLarge.neckSize}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          ExtraLarge: {
+                            ...editData.sizes.ExtraLarge,
+                            neckSize: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Neck Size"
+                  />
+                  <input
+                    type="text"
+                    value={editData.sizes.ExtraLarge.shoulderWidth}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          ExtraLarge: {
+                            ...editData.sizes.ExtraLarge,
+                            shoulderWidth: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Shoulder Width"
+                  />
+                  <input
+                    type="text"
+                    value={editData.sizes.ExtraLarge.length}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        sizes: {
+                          ...editData.sizes,
+                          ExtraLarge: {
+                            ...editData.sizes.ExtraLarge,
+                            length: e.target.value,
+                          },
+                        },
+                      })
+                    }
+                    className="w-full px-3 py-2 border rounded"
+                    placeholder="Length"
+                  />
+                </div>
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600"
+                  onClick={handleUpdate}
+                >
+                  Update
+                </button>
+                <button
+                  className="bg-gray-500 text-white px-4 py-2 rounded"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </Layout>
   );
 };
 
