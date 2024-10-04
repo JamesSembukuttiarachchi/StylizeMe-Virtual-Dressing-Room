@@ -29,6 +29,7 @@ import Feedbackdelete from "./pages/Feedbackdelete";
 import FeedbackHome from "./pages/FeedbackHome";
 import UserReport from "./pages/UserReport";
 import MyFeedback from "./pages/MyFeedback.jsx";
+import UserManagement from "./components/UserManagement.jsx";
 
 const App = () => {
   return (
@@ -60,6 +61,7 @@ const App = () => {
           <Route path="/product/:id" element={<ProductDetails />} />
 
           <Route path="/admin" element={<AdminRoute></AdminRoute>} />
+          <Route path="/users" element={<UserManagement/>}/>
           <Route
             path="/addsizes"
             element={
