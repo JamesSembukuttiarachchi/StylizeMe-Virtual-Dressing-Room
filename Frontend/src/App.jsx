@@ -28,6 +28,7 @@ import Feedbackupdate from "./pages/Feedbackupdate";
 import Feedbackdelete from "./pages/Feedbackdelete";
 import FeedbackHome from "./pages/FeedbackHome";
 import UserReport from "./pages/UserReport";
+import MyFeedback from "./pages/MyFeedback.jsx";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/home" element={<ShoppingHome />} />
           <Route path="/contact" element={<FeedbackHome />} />
           <Route path="/Feedback" element={<FeedbackForm />} />
+          <Route path="/MyFeedback" element={<MyFeedback/>}/>
           <Route path="/Feedbackview/:feedbackId" element={<Feedbackview />} />
           <Route
             path="/Feedbackupdate/:feedbackId"

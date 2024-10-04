@@ -4,7 +4,7 @@ import { FaceMesh } from '@mediapipe/face_mesh';
 import { Camera } from '@mediapipe/camera_utils';
 import bean from '../assets/bean.png'; // Make sure this path is correct
 
-const ARCap = () => {
+const ARCap = ({imageUrl}) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [faceMesh, setFaceMesh] = useState(null);
@@ -45,7 +45,7 @@ const ARCap = () => {
       const height = width * 1; // Adjust height
 
       const capImage = new Image();
-      capImage.src = bean; // Ensure the image path is correct
+      capImage.src = imageUrl; // Ensure the image path is correct
       capImage.onload = () => {
         ctx.drawImage(
           capImage,

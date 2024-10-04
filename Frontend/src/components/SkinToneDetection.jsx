@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { db } from "../firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
 import { auth } from "../firebaseConfig";
+import wallpaper from "../assets/wall.jpg"
+
 
 const SkinToneDetection = () => {
   const videoRef = useRef(null);
@@ -15,7 +17,11 @@ const SkinToneDetection = () => {
     const startWebcam = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: {
+            width: 480,
+            height: 640,
+            facingMode: "user",
+          },
         });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
@@ -33,16 +39,13 @@ const SkinToneDetection = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    // Draw the current video frame to the canvas
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     const frame = context.getImageData(0, 0, canvas.width, canvas.height);
 
-    // Detect the skin color
     const skinColor = detectSkinColor(frame.data);
     const colors = getRecommendedColors(skinColor);
     setRecommendedColors(colors);
 
-    // Save skin tone to Firestore for the current user
     const user = auth.currentUser;
     if (user) {
       const userDoc = doc(db, "users", user.uid);
@@ -60,7 +63,7 @@ const SkinToneDetection = () => {
       icon: "info",
       confirmButtonText: "OK",
     }).then(() => {
-      navigate("/savesizes");
+      navigate("/home");
     });
   };
 
@@ -117,29 +120,60 @@ const SkinToneDetection = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-2xl font-bold mb-4">Skin Tone Detection</h1>
-      <video
-        id="video"
-        ref={videoRef}
-        width="640"
-        height="480"
-        autoPlay
-        className="border-2 border-gray-800 mb-4"
-      ></video>
-      <canvas
-        id="canvas"
-        ref={canvasRef}
-        width="640"
-        height="480"
-        className="hidden"
-      ></canvas>
-      <button
-        onClick={analyzeSkinTone}
-        className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        Detect Skin Tone
-      </button>
+    <div className="">
+      <div style={{ backgroundImage: `url(${wallpaper})` }} className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-[#212e5a] from-0% to-[#656565] py-12 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-extrabold text-center text-gray-900 mb-10">
+          Skin Tone Detection
+        </h1>
+        <div className="font-[sans-serif] bg-white max-w-4xl flex items-center py-20 mx-auto p-4 shadow-lg rounded-lg border-4 border-gray-300">
+          <div className="grid md:grid-cols-3 gap-4 items-center">
+            {/* Skin Tone Detection Section */}
+            <div className="flex flex-col items-center">
+              <div className="relative shadow-xl rounded-lg border-4 mb-4">
+                <video
+                  ref={videoRef}
+                  width="480"
+                  height="640"
+                  autoPlay
+                  className="rounded-lg"
+                ></video>
+              </div>
+              <canvas
+                ref={canvasRef}
+                width="480"
+                height="640"
+                className="hidden"
+              ></canvas>
+              <button
+                onClick={analyzeSkinTone}
+                className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 shadow-md transition-all"
+              >
+                Detect Skin Tone
+              </button>
+            </div>
+
+            {/* Instructions Section */}
+            <div className="md:col-span-2 w-full py-6 px-6 sm:px-16">
+              <div className="bg-white p-6 rounded-lg shadow-xl border-4 border-gray-800">
+                <h2 className="text-2xl font-bold mb-4">
+                  How to Use Skin Tone Detection
+                </h2>
+                <ul className="list-disc ml-6 text-left">
+                  <li>Ensure you're in a well-lit environment for best results.</li>
+                  <li>Make sure your face and upper body are visible in the camera.</li>
+                  <li>Click on "Detect Skin Tone" once you're ready.</li>
+                  <li>
+                    The app will analyze your skin tone and recommend dress colors.
+                  </li>
+                  <li>
+                    Once done, the results will be saved, and you can proceed to the next step.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

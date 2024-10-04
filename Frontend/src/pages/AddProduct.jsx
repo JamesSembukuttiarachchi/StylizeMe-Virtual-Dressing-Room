@@ -168,9 +168,11 @@ const AddProduct = () => {
                   Select Cloth Type
                 </option>
                 <option value="T-shirt">T-shirt</option>
+                <option value="Blouse">Blouse</option>
                 <option value="Frock">Frock</option>
                 <option value="Skirt">Skirt</option>
                 <option value="Shades">Shades</option>
+                <option value="Caps">Caps</option>
               </select>
             </div>
 

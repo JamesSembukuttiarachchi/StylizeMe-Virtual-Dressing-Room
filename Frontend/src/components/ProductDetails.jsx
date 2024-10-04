@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Bounds } from "@react-three/drei";
@@ -8,6 +8,9 @@ import * as THREE from "three";
 import Layout from "./layout/Layout";
 import PoseDetection from "./PoseDetection";
 import FaceLandmarkAR from "./FaceMeshAR";
+import ARCap from "./ARCap";
+import ARFrock from "./ARFrock";
+import useUserData from "../hooks/UserData";
 
 // Debugging: Log model URL
 const TShirtModel = ({ modelUrl }) => {
@@ -38,8 +41,14 @@ const TShirtModel = ({ modelUrl }) => {
 const ProductDetails = () => {
   const { id } = useParams(); // Extract product ID from URL
   const [product, setProduct] = useState(null);
+  const [recommendedSize, setRecommendedSize] = useState(""); // Recommended size
   const [show3DModel, setShow3DModel] = useState(false); // Control 3D model display
   const [showARView, setShowARView] = useState(false); // State for AR View
+  const {
+    userData,
+    loading: loadingUserData,
+    error: userDataError,
+  } = useUserData(); // Fetch user data from the custom hook
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -60,6 +69,67 @@ const ProductDetails = () => {
 
     fetchProduct();
   }, [id]);
+
+  useEffect(() => {
+    const calculateRecommendedSize = async () => {
+      if (!userData) return; // Wait until userData is fetched
+
+      const userMeasurements = {
+        length: parseInt(userData.length, 10),
+        neckSize: parseInt(userData.neckSize, 10),
+        shoulderWidth: parseInt(userData.shoulderWidth, 10),
+      };
+
+      const sizeChartsCollection = collection(db, "tshirt");
+      const sizeChartsSnapshot = await getDocs(sizeChartsCollection);
+
+      let brandSizeChart = null;
+      console.log("Product Brand:", product.brand); // Debugging line
+
+      // Log all fetched size charts
+      sizeChartsSnapshot.forEach((doc) => {
+        const sizeChartData = doc.data();
+        console.log("Fetched Size Chart Data:", sizeChartData); // Log size charts
+        if (
+          sizeChartData.brandName.trim().toLowerCase() ===
+          product.brand.trim().toLowerCase()
+        ) {
+          brandSizeChart = sizeChartData.sizes;
+        }
+      });
+
+      if (!brandSizeChart) {
+        console.error("No size chart found for this brand");
+        return;
+      }
+
+      let bestSize = "";
+      Object.keys(brandSizeChart).forEach((size) => {
+        const brandSize = brandSizeChart[size];
+        console.log(
+          "Comparing user measurements:",
+          userMeasurements,
+          "with brand size:",
+          brandSize
+        );
+        if (
+          userMeasurements.length >= parseInt(brandSize.length, 10) &&
+          userMeasurements.neckSize >= parseInt(brandSize.neckSize, 10) &&
+          userMeasurements.shoulderWidth >=
+            parseInt(brandSize.shoulderWidth, 10)
+        ) {
+          bestSize = size;
+          console.log("Best size updated to:", bestSize);
+        }
+      });
+
+      setRecommendedSize(bestSize || "No size match");
+    };
+
+    if (product && userData) {
+      calculateRecommendedSize();
+    }
+  }, [product, userData]);
 
   // Cleanup when AR View is closed to stop the camera
   const handleCloseARView = () => {
@@ -92,6 +162,10 @@ const ProductDetails = () => {
             <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
             <p className="text-lg text-gray-600 mb-2">{product.brand}</p>
             <p className="text-gray-700 mb-4">{product.description}</p>
+            <p>
+              <strong>Recommended Size:</strong>{" "}
+              {recommendedSize || "Loading size..."}
+            </p>
             <div className="text-2xl font-bold text-gray-900 mb-4">
               Rs.{product.price}
             </div>
@@ -134,7 +208,7 @@ const ProductDetails = () => {
 
         {/* Display the 3D Model modal if show3DModel is true */}
         {show3DModel && (
-          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-49">
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[100]">
             <div className="relative w-full max-w-3xl h-3/4 bg-white rounded-lg shadow-lg overflow-hidden">
               <button
                 onClick={() => {
@@ -188,10 +262,15 @@ const ProductDetails = () => {
                 ✕
               </button>
               {/* Conditionally render the AR component based on product type */}
-              {product.clothType === "T-shirt" ? (
+              {product.clothType === "T-shirt" ||
+              product.clothType === "Blouse" ? (
                 <PoseDetection imageUrl={product.imageUrl} />
               ) : product.clothType === "Shades" ? (
                 <FaceLandmarkAR imageUrl={product.imageUrl} />
+              ) : product.clothType === "Caps" ? (
+                <ARCap imageUrl={product.imageUrl} />
+              ) : product.clothType === "Frock" ? (
+                <ARFrock imageUrl={product.imageUrl} />
               ) : (
                 <p>AR view not available for this product type</p>
               )}

@@ -43,7 +43,7 @@ const Signup = () => {
         timer: 2000,
         showConfirmButton: false,
       }).then(() => {
-        navigate("/detectskintone");
+        navigate("/savesizes");
       });
     } catch (err) {
       setError(err.message);

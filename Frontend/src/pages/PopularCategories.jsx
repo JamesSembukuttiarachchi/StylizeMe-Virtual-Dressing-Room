@@ -1,6 +1,8 @@
 import React from "react";
 import popular1 from "../assets/popular1.jpeg";
+import pop1 from "../assets/BnrImg3RM.png";
 import popular2 from "../assets/popular2.jpeg";
+import popular3 from "../assets/capg.jpg";
 import Testimonials from "../components/Testimonials";
 
 const supplementCategoryItems = [
@@ -29,9 +31,9 @@ const PopularCategories = () => {
 
         <ul className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
           <li>
-            <a href="/product" className="group relative block">
+            <a href="/product" className="group relative block bg-gray-300" >
               <img
-                src={popular1}
+                src={pop1}
                 alt=""
                 className="aspect-square w-full object-cover transition duration-500 group-hover:opacity-90"
               />
@@ -67,7 +69,7 @@ const PopularCategories = () => {
           <li className="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <a href="/product" className="group relative block">
               <img
-                src="https://cdn.australia247.info/assets/uploads/3caf9a041fb884963b933fe99cc58d95_-south-australia-city-of-prospect-prospect-nutrition-warehouse-prospecthtml.jpg"
+                src={popular3}
                 alt=""
                 className="aspect-square w-full object-cover transition duration-500 group-hover:opacity-90"
               />

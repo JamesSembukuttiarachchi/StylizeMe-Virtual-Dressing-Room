@@ -6,6 +6,7 @@ import { Chart, registerables } from "chart.js";
 import headerImage from "../assets/headerFeedback.png";
 import footerImage from "../images/feedbackhome.png";
 import Layout from "../components/layout/Layout";
+import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import Firebase Authentication
 
 // Register the Chart.js components
 Chart.register(...registerables);
@@ -15,6 +16,7 @@ const FeedbackHome = () => {
   const [filteredFeedbacks, setFilteredFeedbacks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [chartData, setChartData] = useState({});
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false); // Track if user is logged in
 
   const [currentPage, setCurrentPage] = useState(1);
   const feedbacksPerPage = 6;
@@ -88,6 +90,15 @@ const FeedbackHome = () => {
     setCurrentPage(1); // Reset to first page when search term changes
   }, [searchTerm, feedbacks]);
 
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsUserLoggedIn(!!user); // Set true if user is logged in
+    });
+
+    return () => unsubscribe(); // Clean up the subscription on unmount
+  }, []);
+
   // Pagination logic
   const indexOfLastFeedback = currentPage * feedbacksPerPage;
   const indexOfFirstFeedback = indexOfLastFeedback - feedbacksPerPage;
@@ -140,13 +151,27 @@ const FeedbackHome = () => {
             </div>
 
             {/* Add Feedback Button */}
-            <div className="ml-4">
-              <a
-                href="/Feedback"
-                className="px-6 py-3 text-white transition-transform duration-300 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105"
-              >
-                Add My Feedback
-              </a>
+            <div className="flex">
+              {isUserLoggedIn && (
+                <>
+                  <div className="ml-4">
+                    <a
+                      href="/MyFeedback"
+                      className="px-6 py-3 text-white transition-transform duration-300 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105"
+                    >
+                      View My Feedback
+                    </a>
+                  </div>
+                  <div className="ml-4">
+                    <a
+                      href="/Feedback"
+                      className="px-6 py-3 text-white transition-transform duration-300 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105"
+                    >
+                      Add My Feedback
+                    </a>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
