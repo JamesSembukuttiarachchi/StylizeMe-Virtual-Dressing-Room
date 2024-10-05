@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore"; // Firestore functions
+import { GoBookmarkFill } from "react-icons/go";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
@@ -112,8 +113,11 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <div className="navbar-end">
+          <div className="navbar-end gap-2">
             {/* Conditionally render button */}
+            <Link to="/saved">
+              <GoBookmarkFill className="h-7 w-7 text-white rounded-md cursor z-[99]" />
+            </Link>
 
             <div className="dropdown dropdown-end">
               <div

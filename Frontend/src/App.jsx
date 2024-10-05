@@ -31,6 +31,7 @@ import UserReport from "./pages/UserReport";
 import MyFeedback from "./pages/MyFeedback.jsx";
 import UserManagement from "./components/UserManagement.jsx";
 import Contact from "./pages/Contact_us.jsx";
+import SavedProducts from "./components/SavedProducts.jsx";
 
 const App = () => {
   return (
@@ -61,6 +62,7 @@ const App = () => {
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/menu" element={<ProductList />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/saved" element={<SavedProducts/>}/>
 
           <Route path="/admin" element={<AdminRoute></AdminRoute>} />
           <Route path="/users" element={<UserManagement/>}/>
