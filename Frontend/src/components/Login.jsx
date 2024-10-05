@@ -48,7 +48,7 @@ const Login = () => {
           showConfirmButton: false,
         }).then(() => {
           // Redirect to normal user page if user is not an admin
-          navigate("/dummy");
+          navigate("/");
         });
       }
     } catch (err) {
