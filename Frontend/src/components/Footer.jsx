@@ -13,7 +13,7 @@ const Footer = () => {
                   href="javascript:void(0)"
                   class="text-gray-300 hover:text-white text-sm transition-all"
                 >
-                  Newsroom
+                  Store
                 </a>
               </li>
               <li>
@@ -21,7 +21,7 @@ const Footer = () => {
                   href="javascript:void(0)"
                   class="text-gray-300 hover:text-white text-sm transition-all"
                 >
-                  Tailwind CSS
+                  Feedback
                 </a>
               </li>
               <li>
@@ -29,7 +29,7 @@ const Footer = () => {
                   href="javascript:void(0)"
                   class="text-gray-300 hover:text-white text-sm transition-all"
                 >
-                  Careers
+                  Contact Us
                 </a>
               </li>
             </ul>
@@ -96,13 +96,9 @@ const Footer = () => {
           </div>
 
           <div class="flex items-center lg:justify-center">
-            <a href="javascript:void(0)">
-              <img
-                src="https://readymadeui.com/readymadeui-light.svg"
-                alt="logo"
-                class="w-60"
-              />
-            </a>
+            <span className="text-white text-5xl font-bold">
+              StylizeMe
+            </span>
           </div>
         </div>
 
@@ -161,7 +157,7 @@ const Footer = () => {
           </div>
 
           <p class="text-gray-300 text-sm">
-            © ReadymadeUI. All rights reserved.
+            © StylizeMe. All rights reserved.
           </p>
         </div>
       </footer>

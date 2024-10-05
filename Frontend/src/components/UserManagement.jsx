@@ -42,7 +42,7 @@ const UserManagement = () => {
         }}
       >
         <div className="container mx-auto p-4">
-          <h2 className="text-2xl font-bold mb-4">User Management</h2>
+          <h2 className="text-2xl font-bold mb-4 text-white flex justify-center">User Management</h2>
           <div className="overflow-x-auto"></div>
           <table className="min-w-full bg-white">
             <thead className="bg-gray-100 whitespace-nowrap">

@@ -66,7 +66,7 @@ const SavedProducts = () => {
   return (
     <Layout>
       <div className="section-container my-20 mx-20">
-        <h1 className="text-3xl font-bold">Saved Products</h1>
+        <h1 className="text-3xl font-bold">WARDROBE</h1>
         <div className="grid grid-cols-3 gap-4 mt-10">
           {savedProducts.length > 0 ? (
             savedProducts.map((product) => (

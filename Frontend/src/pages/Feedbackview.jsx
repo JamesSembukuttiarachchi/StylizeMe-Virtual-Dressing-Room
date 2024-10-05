@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../firebaseConfig";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
@@ -17,7 +17,9 @@ const FeedbackView = () => {
   const [feedbackData, setFeedbackData] = useState(null);
   const [allFeedbackData, setAllFeedbackData] = useState([]); // State to store all feedback
   const [chartData, setChartData] = useState({}); // State for chart data
+  const [loading, setLoading] = useState(true); // Loading state
   const navigate = useNavigate();
+  const chartRef = useRef(); // Ref for the Pie chart
 
   useEffect(() => {
     const fetchFeedbackById = async () => {
@@ -31,6 +33,8 @@ const FeedbackView = () => {
         }
       } catch (error) {
         console.error("Error fetching document: ", error);
+      } finally {
+        setLoading(false); // Stop loading when done
       }
     };
 
@@ -49,9 +53,7 @@ const FeedbackView = () => {
         };
 
         feedbackList.forEach((feedback) => {
-          const exp = feedback.experience
-            ? feedback.experience.toLowerCase()
-            : "";
+          const exp = feedback.experience ? feedback.experience.toLowerCase() : "";
           if (experienceCount.hasOwnProperty(exp)) {
             experienceCount[exp]++;
           }
@@ -88,8 +90,7 @@ const FeedbackView = () => {
     fetchAllFeedback();
   }, [feedbackId]);
 
-  // Function to generate PDF report
-  const generatePDF = () => {
+  const generatePDF = async () => {
     if (!feedbackData) return;
 
     const doc = new jsPDF();
@@ -98,9 +99,15 @@ const FeedbackView = () => {
     doc.setFontSize(20);
     doc.text("User Feedback Report", 14, 22);
 
+    // Add the pie chart image
+    if (chartRef.current) {
+      const chartImage = await chartRef.current.toBase64Image();
+      doc.addImage(chartImage, "PNG", 15, 30, 100, 100);
+    }
+
     // Table with feedback data
     doc.autoTable({
-      startY: 30,
+      startY: 145,
       head: [["Field", "Value"]],
       body: [
         ["Name", feedbackData.userName || "N/A"],
@@ -128,7 +135,9 @@ const FeedbackView = () => {
             Feedback Details
           </h2>
 
-          {feedbackData ? (
+          {loading ? (
+            <p className="text-center text-gray-500">Loading feedback data...</p>
+          ) : feedbackData ? (
             <div className="flex flex-col space-y-6 md:flex-row md:space-y-0 md:space-x-6">
               {/* Pie Chart */}
               <div className="w-full md:w-1/2">
@@ -139,6 +148,7 @@ const FeedbackView = () => {
                   <div className="w-full max-w-xs">
                     {chartData.labels && chartData.labels.length > 0 ? (
                       <Pie
+                        ref={chartRef} // Use the ref here
                         data={chartData}
                         options={{
                           responsive: true,
@@ -174,69 +184,57 @@ const FeedbackView = () => {
               <div className="w-full space-y-4 md:w-1/2">
                 <div className="p-4 border border-blue-200 rounded-md shadow-sm bg-blue-50">
                   <p className="text-lg font-semibold text-gray-600">
-                    <strong>Name:</strong> {feedbackData.userName}
+                    <strong>Name:</strong> {feedbackData.userName || "N/A"}
                   </p>
                 </div>
                 <div className="p-4 border border-blue-200 rounded-md shadow-sm bg-blue-50">
                   <p className="text-lg font-semibold text-gray-600">
-                    <strong>Address:</strong> {feedbackData.userAddress}
+                    <strong>Address:</strong> {feedbackData.userAddress || "N/A"}
                   </p>
                 </div>
                 <div className="p-4 border border-blue-200 rounded-md shadow-sm bg-blue-50">
                   <p className="text-lg font-semibold text-gray-600">
                     <strong>Overall Experience:</strong>
                   </p>
-                  <p className="text-gray-600">{feedbackData.experience}</p>
+                  <p className="text-gray-600">{feedbackData.experience || "N/A"}</p>
                 </div>
                 <div className="p-4 border border-blue-200 rounded-md shadow-sm bg-blue-50">
                   <p className="text-lg font-semibold text-gray-600">
                     <strong>Ease of Use:</strong>
                   </p>
-                  <p className="text-gray-600">{feedbackData.easeOfUse}</p>
+                  <p className="text-gray-600">{feedbackData.easeOfUse || "N/A"}</p>
                 </div>
                 <div className="p-4 border border-blue-200 rounded-md shadow-sm bg-blue-50">
                   <p className="text-lg font-semibold text-gray-600">
                     <strong>Pattern Selection:</strong>
                   </p>
-                  <p className="text-gray-600">
-                    {feedbackData.patternSelection}
-                  </p>
+                  <p className="text-gray-600">{feedbackData.patternSelection || "N/A"}</p>
                 </div>
                 <div className="p-4 border border-blue-200 rounded-md shadow-sm bg-blue-50">
                   <p className="text-lg font-semibold text-gray-600">
                     <strong>Comments:</strong>
                   </p>
-                  <p className="text-gray-600">{feedbackData.comments}</p>
+                  <p className="text-gray-600">{feedbackData.comments || "N/A"}</p>
                 </div>
 
                 <div className="flex justify-end mt-4 space-x-4">
                   <button
-                    onClick={() => navigate(`/feedbackupdate/${feedbackId}`)}
-                    className="px-4 py-2 font-semibold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onClick={() => navigate('/MyFeedback')}
+                    className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
                   >
-                    Update Feedback
+                    View My Feedback
                   </button>
-
-                  <button
-                    onClick={() => navigate(`/feedbackdelete/${feedbackId}`)}
-                    className="px-4 py-2 font-semibold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    Delete My Feedback
-                  </button>
-
                   <button
                     onClick={generatePDF}
-                    className="px-4 py-2 font-semibold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700"
                   >
-                    Generate report
+                    Download PDF
                   </button>
                 </div>
               </div>
             </div>
           ) : (
-            <p className="text-center text-gray-500">
-              Loading feedback data...
-            </p>
+            <p className="text-center text-red-500">No feedback data found.</p>
           )}
         </div>
       </div>

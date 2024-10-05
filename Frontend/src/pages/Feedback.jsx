@@ -99,7 +99,7 @@ const FeedbackForm = () => {
 
         <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg shadow-md">
           <h2 className="mb-6 text-2xl font-bold text-center">
-            Stylezme - Virtual Dressing Room Feedback
+            StylizeMe - Virtual Dressing Room Feedback
           </h2>
 
           <form

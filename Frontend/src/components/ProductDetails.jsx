@@ -181,7 +181,7 @@ const ProductDetails = () => {
                 }} // Show 3D model on button click
               >
                 <a
-                  className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
+                  className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring w-full"
                   href="#"
                 >
                   <span className="absolute inset-0 border border-blue-900 group-active:border-red-500"></span>
@@ -193,7 +193,7 @@ const ProductDetails = () => {
 
               <button onClick={() => setShowARView(true)}>
                 <a
-                  className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
+                  className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring w-full"
                   href="#"
                 >
                   <span className="absolute inset-0 border border-blue-900 group-active:border-red-500"></span>

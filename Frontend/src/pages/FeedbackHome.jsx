@@ -157,7 +157,7 @@ const FeedbackHome = () => {
                   <div className="ml-4">
                     <a
                       href="/MyFeedback"
-                      className="px-6 py-3 text-white transition-transform duration-300 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105"
+                      className="px-6 py-3 text-blue-500 transition-transform duration-300 bg-white  rounded-full shadow-lg hover:bg-slate-100 hover:scale-105"
                     >
                       View My Feedback
                     </a>
@@ -180,72 +180,209 @@ const FeedbackHome = () => {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mx-5">
             {currentFeedbacks.length > 0 ? (
               currentFeedbacks.map((feedback) => (
-                // <div
-                //   key={feedback.id}
-                //   className="p-6 bg-white rounded-lg shadow-lg"
-                // >
-                //   <p className="mb-4 text-lg italic font-semibold text-center text-gray-700">
-                //     <b>"{feedback.comments}"</b>
-                //   </p>
-                //   <div className="text-center">
-                //     <p className="text-xl font-bold text-blue-900">
-                //       {feedback.userName || "Anonymous"}
-                //     </p>
-                //     <p className="text-sm text-gray-500">
-                //       {feedback.userRole || "User"}
-                //     </p>
-                //   </div>
-                //   <div className="mt-4 text-center">
-                //     <p className="text-sm font-bold text-gray-600">
-                //       Overall Experience:
-                //     </p>
-                //     <p className="text-lg font-semibold text-blue-700">
-                //       {feedback.experience || "Not provided"}
-                //     </p>
-                //   </div>
-                // </div>
-                <div key={feedback.id} class="font-[sans-serif] max-w-[410px] h-auto p-6 rounded-lg mx-auto shadow-[0_6px_18px_-6px_rgba(193,195,248)] bg-white relative mt-12 w-full">
-                <img src="https://readymadeui.com/profile_2.webp" class="w-16 h-16 rounded-full absolute right-0 left-0 mx-auto -top-7" />
-                <div class="mt-6 text-center">
-                  <div>
-                    <h4 class="text-sm font-extrabold text-gray-800">{feedback.userName}</h4>
-                    <p class="text-xs text-gray-500 mt-0.5"></p>
-                  </div>
+                <div
+                  key={feedback.id}
+                  class="font-[sans-serif] max-w-[410px] h-auto p-6 rounded-lg mx-auto shadow-[0_6px_18px_-6px_rgba(193,195,248)] bg-white relative mt-12 w-full"
+                >
+                  <img
+                    src="https://readymadeui.com/profile_2.webp"
+                    class="w-16 h-16 rounded-full absolute right-0 left-0 mx-auto -top-7"
+                  />
+                  <div class="mt-6 text-center">
+                    <div>
+                      <h4 class="text-sm font-extrabold text-gray-800">
+                        {feedback.userName}
+                      </h4>
+                      <p class="text-xs text-gray-500 mt-0.5"></p>
+                    </div>
 
-                  <div class="mt-4">
-                    <h2 class="text-lg font-extrabold text-blue-800 mb-2 text-transform: uppercase">{feedback.experience}</h2>
-                    <p class="text-sm text-gray-800 leading-relaxed">{feedback.comments}</p>
-                  </div>
+                    <div class="mt-4">
+                      <h2 class="text-lg font-extrabold text-blue-800 mb-2 text-transform: uppercase">
+                        {feedback.experience}
+                      </h2>
+                      <p class="text-sm text-gray-800 leading-relaxed">
+                        {feedback.comments}
+                      </p>
+                    </div>
 
-                  <div class="flex justify-center space-x-1 mt-4">
-                    <svg class="w-5 fill-[#facc15]" viewBox="0 0 14 13" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                    </svg>
-                    <svg class="w-5 fill-[#facc15]" viewBox="0 0 14 13" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                    </svg>
-                    <svg class="w-5 fill-[#facc15]" viewBox="0 0 14 13" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                    </svg>
-                    <svg class="w-5 fill-[#facc15]" viewBox="0 0 14 13" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                    </svg>
-                    <svg class="w-5 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                    </svg>
+                    {feedback.experience == "excellent" && (
+                      <div class="flex justify-center space-x-1 mt-4">
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                      </div>
+                    )}
+                    {feedback.experience == "good" && (
+                      <div class="flex justify-center space-x-1 mt-4">
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#CED5D8]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                      </div>
+                    )}
+                    {feedback.experience == "average" && (
+                      <div class="flex justify-center space-x-1 mt-4">
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#CED5D8]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#CED5D8]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                      </div>
+                    )}
+                    {feedback.experience == "poor" && (
+                      <div class="flex justify-center space-x-1 mt-4">
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#facc15]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#CED5D8]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#CED5D8]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#CED5D8]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
               ))
             ) : (
               <p className="text-center text-gray-500">
