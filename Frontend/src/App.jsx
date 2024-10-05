@@ -35,7 +35,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
 
           <Route path="/detectskintone" element={<SkinToneDetection />} />
-          <Route path="/home" element={<ShoppingHome />} />
+          <Route path="/" element={<ShoppingHome />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/Feedhome" element={<FeedbackHome />} />
           <Route path="/Feedback" element={<FeedbackForm />} />

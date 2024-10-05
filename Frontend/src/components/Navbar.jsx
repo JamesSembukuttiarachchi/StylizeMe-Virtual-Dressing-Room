@@ -75,7 +75,7 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <Link to="/home">HOME</Link>
+                  <Link to="/">HOME</Link>
                 </li>
                 <li>
                   <Link to="/menu">SHOP</Link>
@@ -100,7 +100,7 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 text-white font-semibold text-[15px]">
               <li>
-                <Link to="/home">HOME</Link>
+                <Link to="/">HOME</Link>
               </li>
               <li>
                 <Link to="/menu">SHOP</Link>
@@ -296,7 +296,7 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <Link to="/home">HOME</Link>
+                  <Link to="/">HOME</Link>
                 </li>
                 <li>
                   <Link to="/menu">SHOP</Link>
@@ -321,7 +321,7 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 text-white font-semibold text-[15px]">
               <li>
-                <Link to="/home">HOME</Link>
+                <Link to="/">HOME</Link>
               </li>
               <li>
                 <Link to="/menu">SHOP</Link>
@@ -337,7 +337,9 @@ const Navbar = () => {
           <div className="navbar-end">
             {/* Conditionally render button */}
 
-            <Link to="/login" className="btn">Login</Link>
+            <Link to="/login" className="btn">
+              Login
+            </Link>
           </div>
         </div>
       )}
