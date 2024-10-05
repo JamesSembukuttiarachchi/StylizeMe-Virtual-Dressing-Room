@@ -156,7 +156,7 @@ const Navbar = () => {
         </div>
       )}
       {isAdmin && (
-        <div className="navbar bg-gradient-to-r from-[#212e5a] from-0% to-[#656565] px-5 py-4">
+        <div className="navbar bg-gradient-to-r from-[#97a7d7] from-0% to-[#212e5a] px-5 py-2">
           <div className="navbar-start">
             <div className="dropdown">
               <div
@@ -268,7 +268,7 @@ const Navbar = () => {
         </div>
       )}
       {!user && (
-        <div className="navbar bg-gradient-to-r from-[#212e5a] from-0% to-[#656565] px-5 py-4">
+        <div className="navbar bg-gradient-to-r from-[#97a7d7] from-0% to-[#212e5a] px-5 py-2">
           <div className="navbar-start">
             <div className="dropdown">
               <div
@@ -302,7 +302,7 @@ const Navbar = () => {
                   <Link to="/menu">SHOP</Link>
                 </li>
                 <li>
-                  <Link to="/Feedhome">Feedback</Link>
+                  <Link to="/Feedhome">FEEDBACK</Link>
                 </li>
                 <li>
                   <Link to="/contact">CONTACT US</Link>
@@ -327,7 +327,7 @@ const Navbar = () => {
                 <Link to="/menu">SHOP</Link>
               </li>
               <li>
-                <Link to="/Feedhome">Feedback</Link>
+                <Link to="/Feedhome">FEEDBACK</Link>
               </li>
               <li>
                 <Link to="/contact">CONTACT US</Link>
@@ -337,7 +337,7 @@ const Navbar = () => {
           <div className="navbar-end">
             {/* Conditionally render button */}
 
-            <a className="btn">Login</a>
+            <Link to="/login" className="btn">Login</Link>
           </div>
         </div>
       )}

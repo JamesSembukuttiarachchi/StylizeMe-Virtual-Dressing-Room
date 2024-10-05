@@ -102,11 +102,7 @@ const ProductList = () => {
     <Layout>
       <div className="">
         <div>
-        <img
-            src={bnr}
-            alt="Header"
-            className="w-full mb-8 shadow-lg"
-          />
+          <img src={bnr} alt="Header" className="w-full mb-8 shadow-lg" />
         </div>
 
         {/* Search and Filter Section */}
@@ -139,8 +135,12 @@ const ProductList = () => {
               >
                 <option value="">All Clothing Types</option>
                 <option value="T-shirt">T-shirt</option>
+                <option value="Hoodie">Hoodie</option>
+                <option value="Blouse">Blouse</option>
                 <option value="Frock">Frock</option>
                 <option value="Skirt">Skirt</option>
+                <option value="Shades">Shades</option>
+                <option value="Caps">Caps</option>
               </select>
 
               {/* Brand Filter */}
@@ -152,6 +152,7 @@ const ProductList = () => {
                 <option value="">All Brands</option>
                 <option value="OVS">OVS</option>
                 <option value="H&M">H&M</option>
+                <option value="Nike">Nike</option>
                 <option value="Adidas">Adidas</option>
                 <option value="AVM">AVM</option>
               </select>
