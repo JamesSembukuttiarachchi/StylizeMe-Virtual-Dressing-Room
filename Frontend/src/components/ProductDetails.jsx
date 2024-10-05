@@ -263,7 +263,7 @@ const ProductDetails = () => {
               </button>
               {/* Conditionally render the AR component based on product type */}
               {product.clothType === "T-shirt" ||
-              product.clothType === "Blouse" ? (
+              product.clothType === "Blouse" || product.clothType === "Hoodie" ? (
                 <PoseDetection imageUrl={product.imageUrl} />
               ) : product.clothType === "Shades" ? (
                 <FaceLandmarkAR imageUrl={product.imageUrl} />

@@ -30,6 +30,7 @@ import FeedbackHome from "./pages/FeedbackHome";
 import UserReport from "./pages/UserReport";
 import MyFeedback from "./pages/MyFeedback.jsx";
 import UserManagement from "./components/UserManagement.jsx";
+import Contact from "./pages/Contact_us.jsx";
 
 const App = () => {
   return (
@@ -42,7 +43,8 @@ const App = () => {
 
           <Route path="/detectskintone" element={<SkinToneDetection />} />
           <Route path="/home" element={<ShoppingHome />} />
-          <Route path="/contact" element={<FeedbackHome />} />
+          <Route path="/contact" element={<Contact/>}/>
+          <Route path="/Feedhome" element={<FeedbackHome />} />
           <Route path="/Feedback" element={<FeedbackForm />} />
           <Route path="/MyFeedback" element={<MyFeedback/>}/>
           <Route path="/Feedbackview/:feedbackId" element={<Feedbackview />} />

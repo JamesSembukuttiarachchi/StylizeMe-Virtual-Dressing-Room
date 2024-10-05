@@ -5,6 +5,8 @@ import Slider from "react-slick";
 import Cards from "./Cards.jsx";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import allProducts from "../assets/data/allProducts.json";
+import { db } from "../firebaseConfig"; // Import your Firestore database
+import { collection, getDocs } from "firebase/firestore";
 
 const simpleNextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -36,13 +38,24 @@ const Latest = () => {
   const [products, setProducts] = useState([]);
   const slider = React.useRef(null);
 
-  // UseEffect to load the products from the JSON file
+  // UseEffect to load the products from Firestore
   useEffect(() => {
-    // Filter the products with "latest" category
-    const latestProducts = allProducts.filter(
-      (item) => item.category === "latest"
-    );
-    setProducts(latestProducts);
+    const fetchAllProducts = async () => {
+      try {
+        const productsRef = collection(db, "products"); // Adjust the collection name as needed
+        const querySnapshot = await getDocs(productsRef);
+
+        const allProducts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Map through the documents
+
+        // Shuffle the products and select the first 6
+        const randomProducts = allProducts.sort(() => 0.5 - Math.random()).slice(0, 6);
+        setProducts(randomProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchAllProducts();
   }, []);
 
   const settings = {
@@ -112,7 +125,7 @@ const Latest = () => {
         className="overflow-hidden mt-10 space-x-5"
       >
         {products.map((item) => (
-          <Cards key={item._id} item={item} />
+          <Cards key={item.id} item={item} />
         ))}
       </Slider>
     </div>

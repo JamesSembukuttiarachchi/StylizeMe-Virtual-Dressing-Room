@@ -23,15 +23,16 @@ const FaceLandmarkAR = ({imageUrl}) => {
   const onResults = (results) => {
     const canvasElement = canvasRef.current;
     const canvasCtx = canvasElement.getContext('2d');
+
+    // Set canvas dimensions to match video
+    const videoWidth = webcamRef.current.video.videoWidth;
+    const videoHeight = webcamRef.current.video.videoHeight;
+    canvasElement.width = videoWidth;
+    canvasElement.height = videoHeight;
+
     canvasCtx.save();
-    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    canvasCtx.drawImage(
-      results.image,
-      0,
-      0,
-      canvasElement.width,
-      canvasElement.height
-    );
+    canvasCtx.clearRect(0, 0, videoWidth, videoHeight);
+    canvasCtx.drawImage(results.image, 0, 0, videoWidth, videoHeight);
 
     if (results.multiFaceLandmarks) {
       results.multiFaceLandmarks.forEach((landmarks) => {
@@ -45,28 +46,25 @@ const FaceLandmarkAR = ({imageUrl}) => {
         setPreviousLeftEye(leftEye);
         setPreviousRightEye(rightEye);
 
-        const sunglassesWidth = Math.abs(rightEye.x - leftEye.x) * canvasElement.width * 2;
-        const sunglassesHeight = sunglassesWidth / 2; // Aspect ratio of sunglasses
+        // Calculate width and height of the sunglasses based on the distance between eyes
+        const eyeDistance = Math.abs(rightEye.x - leftEye.x) * videoWidth;
+        const sunglassesWidth = eyeDistance * 2.5;  // Increase this factor to resize sunglasses
+        const sunglassesHeight = sunglassesWidth / 2; // Maintain aspect ratio for sunglasses
 
-        const sunglassesX = leftEye.x * canvasElement.width - sunglassesWidth / 4;
-        const sunglassesY = leftEye.y * canvasElement.height - sunglassesHeight / 2;
+        const sunglassesX = (leftEye.x + rightEye.x) / 2 * videoWidth - sunglassesWidth / 2;
+        const sunglassesY = leftEye.y * videoHeight - sunglassesHeight / 2;
 
         const img = new Image();
-        img.src = imageUrl; // Ensure this path is correct
+        img.src = imageUrl;
         img.onload = () => {
-          canvasCtx.drawImage(
-            img,
-            sunglassesX,
-            sunglassesY,
-            sunglassesWidth,
-            sunglassesHeight
-          );
+          canvasCtx.drawImage(img, sunglassesX, sunglassesY, sunglassesWidth, sunglassesHeight);
         };
       });
     }
 
     canvasCtx.restore();
   };
+
 
   useEffect(() => {
     const initializeFaceMesh = () => {

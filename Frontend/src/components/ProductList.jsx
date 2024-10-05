@@ -3,6 +3,7 @@ import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import Card from "./Card";
 import Banner1 from "./banner1";
+import bnr from "../assets/bnrRevised.png";
 import Layout from "./layout/Layout";
 
 const ProductList = () => {
@@ -101,7 +102,11 @@ const ProductList = () => {
     <Layout>
       <div className="">
         <div>
-          <Banner1 />
+        <img
+            src={bnr}
+            alt="Header"
+            className="w-full mb-8 shadow-lg"
+          />
         </div>
 
         {/* Search and Filter Section */}

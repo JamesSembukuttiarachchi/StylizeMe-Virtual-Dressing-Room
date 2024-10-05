@@ -3,6 +3,7 @@ import { db, storage } from "../firebaseConfig.js";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Swal from "sweetalert2";
+import Layout from "../components/layout/Layout.jsx";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -120,6 +121,7 @@ const AddProduct = () => {
   };
 
   return (
+    <Layout>
     <div
       className="flex justify-center items-center min-h-screen p-6 bg-cover bg-center"
       style={{ backgroundImage: "url('/addProduct-bg.jpg')" }} // Using the image from the public folder
@@ -168,6 +170,7 @@ const AddProduct = () => {
                   Select Cloth Type
                 </option>
                 <option value="T-shirt">T-shirt</option>
+                <option value="Hoodie">Hoodie</option>
                 <option value="Blouse">Blouse</option>
                 <option value="Frock">Frock</option>
                 <option value="Skirt">Skirt</option>
@@ -261,6 +264,7 @@ const AddProduct = () => {
         </form>
       </div>
     </div>
+    </Layout>
   );
 };
 

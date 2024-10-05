@@ -46,7 +46,7 @@ const Navbar = () => {
   return (
     <div>
       {user && !isAdmin && (
-        <div className="navbar bg-gradient-to-r from-[#212e5a] from-0% to-[#656565] px-5 py-4">
+        <div className="navbar bg-gradient-to-r from-[#97a7d7] from-0% to-[#212e5a] px-5 py-2">
           <div className="navbar-start">
             <div className="dropdown">
               <div
@@ -80,6 +80,9 @@ const Navbar = () => {
                   <Link to="/menu">SHOP</Link>
                 </li>
                 <li>
+                  <Link to="/Feedhome">FEEDBACK</Link>
+                </li>
+                <li>
                   <Link to="/contact">CONTACT US</Link>
                 </li>
               </ul>
@@ -95,15 +98,18 @@ const Navbar = () => {
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 text-white font-semibold text-[15px]">
-            <li>
-                  <Link to="/home">HOME</Link>
-                </li>
-                <li>
-                  <Link to="/menu">SHOP</Link>
-                </li>
-                <li>
-                  <Link to="/contact">CONTACT US</Link>
-                </li>
+              <li>
+                <Link to="/home">HOME</Link>
+              </li>
+              <li>
+                <Link to="/menu">SHOP</Link>
+              </li>
+              <li>
+                <Link to="/Feedhome">FEEDBACK</Link>
+              </li>
+              <li>
+                <Link to="/contact">CONTACT US</Link>
+              </li>
             </ul>
           </div>
           <div className="navbar-end">
@@ -127,10 +133,10 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a className="justify-between">
+                  <Link to="/userprofile" className="justify-between">
                     Profile
                     <span className="badge">New</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a>{username}</a>
@@ -174,13 +180,16 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a>HOME</a>
+                  <Link to="/manage-products">Manage Products</Link>
                 </li>
                 <li>
-                  <a>SHOP</a>
+                  <Link to="/addsizes">Manage Sizes</Link>
                 </li>
                 <li>
-                  <a>CONTACT US</a>
+                  <Link to="/brands">View Brands</Link>
+                </li>
+                <li>
+                  <Link to="/users">User Management</Link>
                 </li>
               </ul>
             </div>
@@ -196,13 +205,16 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 text-white font-semibold text-[15px]">
               <li>
-                <a>HOME</a>
+                <Link to="/manage-products">Manage Products</Link>
               </li>
               <li>
-                <a>SHOP</a>
+                <Link to="/addsizes">Manage Sizes</Link>
               </li>
               <li>
-                <a>CONTACT US</a>
+                <Link to="/brands">View Brands</Link>
+              </li>
+              <li>
+                <Link to="/users">User Management</Link>
               </li>
             </ul>
           </div>
@@ -274,13 +286,16 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a>HOME</a>
+                  <Link to="/home">HOME</Link>
                 </li>
                 <li>
-                  <a>SHOP</a>
+                  <Link to="/menu">SHOP</Link>
                 </li>
                 <li>
-                  <a>CONTACT US</a>
+                  <Link to="/Feedhome">Feedback</Link>
+                </li>
+                <li>
+                  <Link to="/contact">CONTACT US</Link>
                 </li>
               </ul>
             </div>
@@ -296,13 +311,16 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 text-white font-semibold text-[15px]">
               <li>
-                <a>HOME</a>
+                <Link to="/home">HOME</Link>
               </li>
               <li>
-                <a>SHOP</a>
+                <Link to="/menu">SHOP</Link>
               </li>
               <li>
-                <a>CONTACT US</a>
+                <Link to="/Feedhome">Feedback</Link>
+              </li>
+              <li>
+                <Link to="/contact">CONTACT US</Link>
               </li>
             </ul>
           </div>
