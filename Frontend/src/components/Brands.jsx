@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   collection,
   getDocs,
@@ -22,6 +23,7 @@ const Brands = () => {
   });
   const [editData, setEditData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Fetching all dress types from Firebase
   useEffect(() => {
@@ -65,6 +67,8 @@ const Brands = () => {
         text: "The item has been deleted.",
         icon: "success",
         confirmButtonText: "OK",
+      }).then(() => {
+        navigate("/brands");
       });
     } catch (error) {
       Swal.fire({
@@ -100,6 +104,8 @@ const Brands = () => {
         text: "The item has been updated.",
         icon: "success",
         confirmButtonText: "OK",
+      }).then(() => {
+        navigate("/brands");
       });
       setEditData(null);
     } catch (error) {

@@ -4,8 +4,7 @@ import Swal from "sweetalert2";
 import { db } from "../firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
 import { auth } from "../firebaseConfig";
-import wallpaper from "../assets/wall.jpg"
-
+import wallpaper from "../assets/wall.jpg";
 
 const SkinToneDetection = () => {
   const videoRef = useRef(null);
@@ -63,7 +62,7 @@ const SkinToneDetection = () => {
       icon: "info",
       confirmButtonText: "OK",
     }).then(() => {
-      navigate("/home");
+      navigate("/");
     });
   };
 
@@ -121,7 +120,10 @@ const SkinToneDetection = () => {
 
   return (
     <div className="">
-      <div style={{ backgroundImage: `url(${wallpaper})` }} className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-[#212e5a] from-0% to-[#656565] py-12 px-4 sm:px-6 lg:px-8">
+      <div
+        style={{ backgroundImage: `url(${wallpaper})` }}
+        className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-[#212e5a] from-0% to-[#656565] py-12 px-4 sm:px-6 lg:px-8"
+      >
         <h1 className="text-4xl font-extrabold text-center text-gray-900 mb-10">
           Skin Tone Detection
         </h1>
@@ -159,14 +161,21 @@ const SkinToneDetection = () => {
                   How to Use Skin Tone Detection
                 </h2>
                 <ul className="list-disc ml-6 text-left">
-                  <li>Ensure you're in a well-lit environment for best results.</li>
-                  <li>Make sure your face and upper body are visible in the camera.</li>
-                  <li>Click on "Detect Skin Tone" once you're ready.</li>
                   <li>
-                    The app will analyze your skin tone and recommend dress colors.
+                    Ensure you're in a well-lit environment for best results.
                   </li>
                   <li>
-                    Once done, the results will be saved, and you can proceed to the next step.
+                    Make sure your face and upper body are visible in the
+                    camera.
+                  </li>
+                  <li>Click on "Detect Skin Tone" once you're ready.</li>
+                  <li>
+                    The app will analyze your skin tone and recommend dress
+                    colors.
+                  </li>
+                  <li>
+                    Once done, the results will be saved, and you can proceed to
+                    the next step.
                   </li>
                 </ul>
               </div>
