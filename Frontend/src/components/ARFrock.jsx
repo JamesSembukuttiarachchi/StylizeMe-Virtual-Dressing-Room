@@ -97,7 +97,7 @@ const ARFrock = ({ imageUrl, onClose }) => {
 
     // Calculate vertical alignment (neck area) and apply an offset if needed
     let neckY = Math.min(shoulderY1, shoulderY2) + (0.23 * shoulderWidth);
-    const verticalOffset = 20; // Fine-tune this value to adjust vertical alignment (negative moves up)
+    const verticalOffset = 50; // Fine-tune this value to adjust vertical alignment (negative moves up)
     neckY += verticalOffset;
 
     // Calculate T-shirt size based on shoulder width
