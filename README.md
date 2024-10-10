@@ -23,3 +23,4 @@ Welcome to the Virtual Dressing Room web app! This application uses AR (Augmente
 - Rakindu Marambe - https://github.com/RakinduM
 - Amaya Fernando - https://github.com/amaya2509
 - Hiruni Fernando - https://github.com/fernandoMHSJ
+
