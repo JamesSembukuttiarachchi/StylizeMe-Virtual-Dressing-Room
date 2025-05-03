@@ -81,6 +81,7 @@ const AddProduct = () => {
             icon: "success",
             title: "Product Added",
             text: "The product has been added successfully.",
+
           });
 
           setName("");

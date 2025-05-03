@@ -1,0 +1,121 @@
+[
+    {
+      "id": "1",
+      "name": "Nike T-shirt",
+      "category": "Male",
+      "brand": "Nike",
+      "clothType": "T-shirt",
+      "price": 29.99,
+      "imageUrl": "path/to/image.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Adidas Hoodie",
+      "category": "Male",
+      "brand": "Adidas",
+      "clothType": "Hoodie",
+      "price": 59.99,
+      "imageUrl": "path/to/image.jpg"
+    },
+    {
+      "id": "3",
+      "name": "H&M Blouse",
+      "category": "Female",
+      "brand": "H&M",
+      "clothType": "Blouse",
+      "price": 39.99,
+      "imageUrl": "path/to/image.jpg"
+    },
+    {
+        "id": "4",
+        "name": "H&MS Blouse",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      },
+      {
+        "id": "5",
+        "name": "H&WM Blouse",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      },
+      {
+        "id": "6",
+        "name": "HS&M Blouse",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      },
+      {
+        "id": "7",
+        "name": "H&M Blsouse",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      },
+      {
+        "id": "3",
+        "name": "H&M Blouse",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      },
+      {
+        "id": "8",
+        "name": "H&M Fee",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      },
+      {
+        "id": "9",
+        "name": "H&M Wee",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      },
+      {
+        "id": "10",
+        "name": "H&M Crop",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      },
+      {
+        "id": "11",
+        "name": "H&M Tee",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      },
+      {
+        "id": "12",
+        "name": "H&M Fro",
+        "category": "Female",
+        "brand": "H&M",
+        "clothType": "Blouse",
+        "price": 39.99,
+        "imageUrl": "path/to/image.jpg"
+      }
+
+
+  ]

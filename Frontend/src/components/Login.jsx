@@ -76,7 +76,8 @@ const Login = () => {
           <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-4">
             Login
           </h2>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && <p className="text-red-500 text-sm error-message">{error}</p>}
+
           <form onSubmit={handleLogin}>
             <div className="mb-4">
               <label
@@ -112,6 +113,7 @@ const Login = () => {
             </div>
             <div className="flex items-center justify-between">
               <button
+                id="submit"
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >

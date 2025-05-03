@@ -114,6 +114,7 @@ const ProductList = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="p-2 border border-gray-300 rounded-lg shadow-sm w-full md:w-1/3 focus:ring focus:ring-blue-200"
+              data-testid="search-input"
             />
             <div className="flex space-x-4">
               {/* Category Filter */}
@@ -161,7 +162,7 @@ const ProductList = () => {
         </div>
 
         {/* Product Grid Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 justify-items-center">
+        <div data-testid="product-card" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 justify-items-center">
           {currentProducts.map((product) => (
             <Card key={product.id} product={product} />
           ))}
