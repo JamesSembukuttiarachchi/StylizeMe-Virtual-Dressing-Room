@@ -10,28 +10,31 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    if (!name.trim()) {
-      setError("Name is required");
-      return;
-    }
-    if (!email.trim()) {
-      setError("Email is required");
-      return;
-    }
-    if (!password.trim()) {
-      setError("Password is required");
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError("Invalid email format");
-      return;
-    }
+    let validationErrors = {};
+
+  if (!name.trim()) {
+    validationErrors.name = "Name is required";
+  }
+  if (!email.trim()) {
+    validationErrors.email = "Email is required";
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (email && !emailRegex.test(email)) {
+    validationErrors.email = "Invalid email format";
+  }
+  if (!password.trim()) {
+    validationErrors.password = "Password is required";
+  }
+
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    return;
+  }
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -84,7 +87,7 @@ const Signup = () => {
           <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-4">
             Sign Up
           </h2>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+
           <form onSubmit={handleSignup}>
             <div className="mb-4">
               <label
@@ -101,6 +104,7 @@ const Signup = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
+              {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
             </div>
             <div className="mb-4">
               <label
@@ -117,6 +121,7 @@ const Signup = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
+              {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
             </div>
             {/* <div className="mb-4">
               <label
