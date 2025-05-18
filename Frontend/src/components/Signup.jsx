@@ -15,6 +15,23 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (!name.trim()) {
+      setError("Name is required");
+      return;
+    }
+    if (!email.trim()) {
+      setError("Email is required");
+      return;
+    }
+    if (!password.trim()) {
+      setError("Password is required");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Invalid email format");
+      return;
+    }
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,

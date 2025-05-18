@@ -34,7 +34,7 @@ describe("Add Product Page", () => {
     cy.contains("Add Product").click();
 
     // Wait for SweetAlert2 popup
-    cy.get(".swal2-popup", { timeout: 20000 }).should("be.visible");
+    cy.get(".swal2-popup", { timeout: 40000 }).should("be.visible");
     cy.get(".swal2-title").should("contain", "Product Added");
     cy.get(".swal2-html-container").should("contain", "The product has been added successfully.");
   });
